@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loomyco — Steppe</title>
+  <style>
+    :root{--paper:#eae5d8;--field:#e7fdbd;--soil:#975649;--acid:#e7fdbd;--max:1400px;--gutter:clamp(30px,5vw,90px);--image-gutter:clamp(10px,1.6vw,24px)}
+    *{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--soil);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility} a{color:inherit;text-decoration:none} img,iframe{display:block}.content{width:100%;max-width:var(--max);margin-left:auto;margin-right:auto;padding-left:var(--gutter);padding-right:var(--gutter)}.bleed{padding-left:var(--image-gutter);padding-right:var(--image-gutter)}
+    .top-nav{padding-top:clamp(42px,4.5vw,66px);font-size:clamp(14px,1.05vw,18px);font-weight:720;display:flex;align-items:flex-start;justify-content:space-between;gap:clamp(24px,4vw,70px)}.nav-links{flex:1;max-width:760px;display:grid;grid-template-columns:repeat(5,max-content);justify-content:space-between;gap:16px 34px}.nav-links a,.footer-nav a{transition:opacity .18s ease}.nav-links a:hover,.footer-nav a:hover{opacity:.62}.inactive{cursor:default;opacity:.78}.nav-wordmark{width:clamp(210px,24vw,400px);flex:0 0 auto}.nav-wordmark img{width:100%;height:auto}.hero{padding:clamp(42px,5.5vw,76px) 0 clamp(34px,5vw,70px)}.hero-statement{margin:0;max-width:900px;font-size:clamp(20px,2vw,31px);line-height:1.42;letter-spacing:-.035em;font-weight:430}.gallery-wrap{margin-top:clamp(28px,4vw,56px);overflow:hidden}.prototype-gallery{display:flex;gap:clamp(16px,2vw,30px);overflow-x:auto;scroll-snap-type:x mandatory;padding:0 var(--image-gutter) 8px;scrollbar-width:thin;scrollbar-color:rgba(151,86,73,.55) transparent}.prototype-gallery::-webkit-scrollbar{height:4px}.prototype-gallery::-webkit-scrollbar-track{background:transparent}.prototype-gallery::-webkit-scrollbar-thumb{background:rgba(151,86,73,.55);border-radius:99px}.prototype-card{flex:0 0 auto;height:calc(100vh - 115px);max-height:830px;min-height:500px;scroll-snap-align:start;margin:0}.prototype-card img{height:100%;width:auto;object-fit:contain}.scroll-note{margin:10px auto 0;text-align:center;font-size:clamp(12px,.9vw,14px);font-weight:700;opacity:.68}.coordinates{padding:clamp(18px,3vw,46px) 0 clamp(70px,9vw,122px)}.coordinates .content{max-width:var(--max);padding-left:var(--gutter);padding-right:var(--gutter)}.coord-grid{width:100%;display:grid;grid-template-columns:.38fr .62fr;border-top:2px solid var(--soil);border-bottom:2px solid var(--soil)}.coord-item{padding:clamp(20px,2.5vw,36px) 0}.coord-item+.coord-item{border-left:2px solid var(--soil);padding-left:clamp(26px,4vw,58px)}.coord-title,.caption-title{font-size:clamp(14px,1.15vw,18px);font-weight:800;margin:0 0 10px;letter-spacing:-.02em}.coord-text{font-size:clamp(17px,1.65vw,25px);line-height:1.22;letter-spacing:-.035em;margin:0}.section{padding:clamp(70px,10vw,130px) 0}.performance-section{padding-bottom:clamp(42px,6vw,78px)}.ecology-section{padding-top:clamp(42px,6vw,78px)}.green{background:var(--field)}.problem-copy{max-width:1040px}.soil{background:var(--soil);color:var(--field)}h2{margin:0 0 clamp(28px,4vw,52px);font-size:clamp(34px,4.15vw,62px);line-height:1.02;letter-spacing:-.06em}.body-large{font-size:clamp(17px,1.45vw,22px);line-height:1.46;letter-spacing:-.025em;margin:0}.body{font-size:clamp(14px,1.1vw,17px);line-height:1.38;letter-spacing:-.018em;margin:0}.two-col{display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(32px,4vw,58px);align-items:start}.material-image{margin:0}.material-image img{width:100%;aspect-ratio:1/1;object-fit:cover;height:auto}.material-list{display:grid;gap:clamp(14px,1.65vw,24px)}.material-item{border-top:2px solid var(--soil);padding-top:14px;display:grid;grid-template-columns:.44fr .56fr;gap:clamp(18px,2.4vw,34px)}.material-item h3,.test-copy h3,.production-item h3{font-size:clamp(18px,1.55vw,24px);line-height:1.12;letter-spacing:-.04em;margin:0}.cycle-layout{width:100%;max-width:none;margin:0;padding-left:var(--gutter);padding-right:var(--gutter);display:block}.cycle-text{margin:0;font-size:clamp(48px,7.4vw,122px);line-height:.92;letter-spacing:-.08em;font-weight:780;white-space:nowrap}.cycle-sub{margin:clamp(24px,3.5vw,48px) 0 0;max-width:900px;font-size:clamp(22px,2.15vw,34px);line-height:1.28;letter-spacing:-.04em}.performance-layout{display:grid;grid-template-columns:.76fr 1.55fr;gap:clamp(44px,6vw,86px);align-items:stretch}.test-intro{display:flex;flex-direction:column;justify-content:flex-start;gap:clamp(20px,2.4vw,34px)}.test-copy h3{margin-bottom:clamp(10px,1.2vw,16px)}.test-copy+.test-copy{margin-top:1.75em}.test-copy ul{margin:0;padding-left:1em}.test-copy li{font-size:clamp(15px,1.25vw,19px);line-height:1.48;margin:.18em 0}.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--image-gutter)}.video-frame{position:relative;width:100%;aspect-ratio:9/16;background:rgba(151,86,73,.16);overflow:hidden}.video-frame iframe,.wide-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.ecology-layout{display:grid;grid-template-columns:2.25fr .8fr;gap:clamp(42px,6vw,82px);align-items:start}.image-stack{display:grid;gap:0}.compare-figure{position:relative;margin:0}.compare-figure + .compare-figure{border-top:2px solid var(--soil);padding-top:clamp(20px,2.5vw,32px);margin-top:clamp(20px,2.5vw,32px)}.compare-figure img{width:100%;height:auto}.image-label{position:absolute;left:16px;top:16px;background:var(--field);color:var(--soil);font-size:clamp(13px,1vw,16px);font-weight:800;padding:7px 11px;border-radius:999px}.ecology-side{height:100%;display:flex;flex-direction:column;justify-content:flex-start;padding-top:0}.tests-group{margin-top:1.4em}.wide-video{position:relative;width:100%;aspect-ratio:16/9;background:rgba(151,86,73,.16);overflow:hidden;margin-bottom:clamp(38px,5vw,70px)}.production-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0}.production-item{border-top:2px solid var(--soil);padding:clamp(18px,2.3vw,30px) clamp(22px,3vw,40px) 0 0}.production-item h3{margin-bottom:clamp(10px,1.2vw,16px)}.production-item .body{padding-bottom:clamp(18px,2vw,26px)}.production-item+.production-item{border-left:2px solid var(--soil);padding-left:clamp(22px,3vw,40px)}.footer{background:var(--soil);color:var(--field);padding:clamp(50px,7vw,88px) 0}.footer-inner{display:grid;grid-template-columns:1fr auto;align-items:start;gap:clamp(34px,6vw,90px);font-size:clamp(15px,1.25vw,18px);line-height:1.4}.footer-nav{display:grid;grid-template-columns:repeat(5,max-content);justify-content:space-between;width:min(100%,760px);gap:16px 34px;font-weight:720}.credits{margin:0;text-align:right;font-weight:650}
+    @media(max-width:900px){.ecology-side{margin-left:0;margin-top:24px}.ecology-layout{display:block}.image-stack{display:block;overflow-x:auto;scrollbar-width:thin;scrollbar-color:rgba(151,86,73,.55) transparent;padding-bottom:8px}.image-stack::-webkit-scrollbar{height:4px}.image-stack::-webkit-scrollbar-thumb{background:rgba(151,86,73,.55);border-radius:99px}.compare-figure{width:max-content;min-width:100%;scroll-snap-align:start}.compare-figure img{width:1150px;max-width:none}.compare-figure+.compare-figure{border-top:2px solid var(--soil);padding-top:clamp(20px,2.5vw,32px);margin-top:clamp(20px,2.5vw,32px)}.image-label{position:sticky;left:16px;display:inline-block;z-index:3}.top-nav{align-items:flex-start;flex-wrap:wrap}.nav-links{max-width:none;width:100%}.footer-inner{grid-template-columns:1fr}.footer-nav{width:100%}.credits{text-align:left}.production-item .body{padding-bottom:22px}.cycle-text{white-space:normal}.top-nav{align-items:center}.nav-wordmark{width:clamp(160px,38vw,260px)}.coord-grid,.two-col,.cycle-layout,.performance-layout,.video-grid,.ecology-layout,.production-grid{grid-template-columns:1fr}.prototype-card{height:calc(100vh - 210px);min-height:390px}.coord-item+.coord-item,.production-item+.production-item{border-left:0;border-top:2px solid var(--soil);padding-left:0}.material-item{grid-template-columns:1fr}.footer-inner{flex-direction:column}}
+  
+
+    /* Mobile overflow guard: keeps footer/nav inside the viewport */
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    img, video {
+      max-width: 100%;
+    }
+
+    .footer, footer {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
+    .footer-inner {
+      width: 100%;
+      max-width: var(--content-max, 1400px);
+      min-width: 0;
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .footer-nav {
+      width: 100%;
+      max-width: 760px;
+      min-width: 0;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      justify-content: stretch;
+      align-items: start;
+      gap: 14px clamp(16px, 3vw, 36px);
+    }
+
+    .footer-nav a {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 760px) {
+      .footer, footer {
+        padding-left: var(--gutter, clamp(30px, 5vw, 90px));
+        padding-right: var(--gutter, clamp(30px, 5vw, 90px));
+      }
+      .footer-inner {
+        grid-template-columns: 1fr !important;
+        gap: 28px !important;
+      }
+      .footer-nav {
+        max-width: 100%;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px 18px;
+      }
+      .credits {
+        text-align: left !important;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .footer-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+  
+
+/* --- May 2026 navigation + mobile refinement patch --- */
+:root{--mobile-gutter:clamp(18px,4.6vw,30px);}
+.nav-links,.footer-nav{grid-template-columns:repeat(4,max-content)!important;align-items:start;}
+.nav-dropdown{position:relative;display:inline-block;line-height:inherit;}
+.nav-dropdown summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:.28em;white-space:nowrap;}
+.nav-dropdown summary::-webkit-details-marker{display:none;}
+.nav-dropdown summary::after{content:"▾";font-size:.72em;line-height:1;transform:translateY(.02em);}
+.dropdown-menu{display:none;position:absolute;left:0;top:100%;min-width:max-content;padding:.72em 1em .78em 0;background:var(--paper, var(--opening-paper, #eae5d8));z-index:20;}
+.site-nav .dropdown-menu{background:var(--paper, var(--opening-paper, #eae5d8));}
+.top-nav .dropdown-menu{background:var(--paper,#e3decf);}
+.footer .dropdown-menu{background:var(--soil);color:var(--field);}
+.nav-dropdown:hover .dropdown-menu,.nav-dropdown:focus-within .dropdown-menu,.nav-dropdown[open] .dropdown-menu{display:grid;gap:.45em;}
+.nav-dropdown:hover summary{opacity:.62;}
+.nav-dropdown a{display:block;white-space:nowrap;}
+.credits{line-height:1.35!important;}
+.hover-note,.zoom-note{margin:.55em 0 0;font-size:clamp(12px,.9vw,14px);line-height:1.35;font-weight:700;letter-spacing:-.01em;opacity:.68;}
+@media (max-width:760px){
+  :root{--gutter:var(--mobile-gutter);--image-gutter:var(--mobile-gutter);}
+  .site-nav,.top-nav{padding-left:var(--mobile-gutter)!important;padding-right:var(--mobile-gutter)!important;}
+  .nav-links,.footer-nav{width:100%!important;max-width:none!important;grid-template-columns:repeat(4,max-content)!important;justify-content:space-between!important;gap:8px!important;font-size:clamp(11px,3.05vw,14px)!important;}
+  .nav-dropdown summary::after{font-size:.66em;}
+  .dropdown-menu{padding:.62em .7em .62em 0;font-size:1em;}
+  .footer-inner{align-items:start!important;}
+  .credits{text-align:left!important;}
+  .hover-note{display:none;}
+  .image-swap.mobile-reveal .hover-img,.hover-image.mobile-reveal img.hover{opacity:1!important;}
+  .image-swap.mobile-reveal .base-img{opacity:0!important;}
+}
+
+
+@media(max-width:900px){.performance-layout{display:grid!important;grid-template-columns:1fr!important}.test-intro{display:contents!important}.test-intro>.body-large{order:1}.test-intro>div{display:contents!important}.test-copy:nth-child(1){order:2}.video-grid{display:contents!important}.video-grid .video-frame:nth-child(1){order:3}.test-copy:nth-child(2){order:4}.video-grid .video-frame:nth-child(2){order:5}.video-frame{margin-bottom:22px}.image-stack{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important;overflow:visible!important}.compare-figure{width:auto!important;min-width:0!important;margin:0!important;padding:0!important;border:0!important}.compare-figure img{width:100%!important;max-width:100%!important;max-height:calc((100vh - 170px)/2)!important;object-fit:contain!important}.image-label{position:absolute!important;left:8px!important;top:8px!important;font-size:11px!important;padding:5px 8px!important}.ecology-side{margin-top:22px!important}}
+</style>
+</head>
+<body>
+  <nav class="top-nav content"><div class="nav-links"><a href="index.html">Steppe</a><details class="nav-dropdown"><summary>Practices</summary><div class="dropdown-menu"><a href="loomyco.html">Loomyco</a><a href="spoor.html">Spoor</a></div></details><a href="about.html">About</a><a href="mailto:steppe.pet@gmail.com">Contact</a></div><a class="nav-wordmark" href="index.html" aria-label="Loomyco"><img src="assets/images/loomyco-wordmark.png" alt="Loomyco"></a></nav>
+  <header class="hero"><div class="content"><p class="hero-statement">Pet soft toys are widely used for behavioural and emotional support, yet synthetic materials and anthropomorphic design also pose animal health risks and growing environmental concerns. Loomyco addresses this dilemma by reconnecting animals’ behavioural continuum of play–tear–eat with biomaterial’s ecological cycles of grow–nourish–regenerate, integrating suppressed behaviours as safe, healthy and meaningful parts of ecological transformation.</p></div><div class="gallery-wrap"><div class="prototype-gallery"><figure class="prototype-card"><img src="assets/images/loomyco-prototype-crocodile.jpg" alt="Crocodile-shaped Loomyco prototype"></figure><figure class="prototype-card"><img src="assets/images/loomyco-prototype-squirrel.jpg" alt="Squirrel-shaped Loomyco prototype"></figure><figure class="prototype-card"><img src="assets/images/loomyco-prototype-birds.jpg" alt="Bird-shaped Loomyco prototypes"></figure><figure class="prototype-card"><img src="assets/images/loomyco-prototype-slippers.jpg" alt="Slipper-shaped Loomyco prototypes"></figure></div><p class="scroll-note content">Scroll to view prototype family</p></div></header>
+  <section class="coordinates"><div class="content"><div class="coord-grid"><div class="coord-item"><p class="coord-title">Multispecies participants</p><p class="coord-text">Animals · Plants · Fungi · Microbes</p></div><div class="coord-item"><p class="coord-title">Ecosystem functions</p><p class="coord-text">Behaviour support · Nutritional flow · Soil regeneration</p></div></div></div></section>
+  <section class="section green"><div class="content"><h2>What it addresses</h2><p class="body-large problem-copy">In the US alone, over 634 million dog toys end up in landfills each year, because most are made from persistent synthetic materials, wear out quickly and are frequently discarded. Treats and chews offer another route, but address only limited behavioural needs while contributing to nutritional imbalance and a higher carbon footprint. Other solutions often rely on training, restriction or indestructibility. This creates a recurring domestic mismatch: what supports instinct often becomes unsafe, wasteful or ecologically costly, while what is safe and acceptable often suppresses natural behaviour.</p></div></section>
+  <section class="section"><div class="content"><h2>How it works</h2><div class="two-col"><figure class="material-image"><img src="assets/images/loomyco-material-closeup.jpg" alt="Close-up of Loomyco material with Reishi and loofah"></figure><div class="material-list"><p class="body-large">Loomyco is grown from digestible materials consisting of loofah scaffold, mushroom mycelium and plant-fibre substrates. Rather than failing when damaged, it keeps functioning through use, fracture, ingestion and eventual ecological return. Its form, hardness, sensory and nourishment profile are highly tunable to adapt to different species and behavioural needs.</p><div class="material-item"><h3>Loofah scaffold</h3><p class="body">Form and internal support, tear resilience, structural integrity after damage.</p></div><div class="material-item"><h3>Reishi mycelium</h3><p class="body">Seamless natural binder, meat-like palatability, immune-support value.</p></div><div class="material-item"><h3>Plant-fibre substrates</h3><p class="body">Digest support, additional nourishment, structural reinforcement.</p></div><div class="material-item"><h3>Beeswax coating</h3><p class="body">Regulates moisture, extends shelf life, visual engagement.</p></div></div></div></div></section>
+  <section class="section soil"><div class="cycle-layout"><p class="cycle-text">Play → Tear → Eat → Regenerate</p><p class="cycle-sub">Loomyco reconnects animals’ behavioural continuum with biomaterial’s ecological cycles of grow, nourish and regenerate.</p></div></section>
+  <section class="section performance-section"><div class="content"><h2>Material Performance</h2><div class="performance-layout"><div class="test-intro"><p class="body-large">Loomyco is designed to remain durable in use, while allowing transformation beyond use.</p><div><div class="test-copy"><h3>Tear Resistance Test</h3><ul><li>Pre-cut to simulate damage</li><li>Loaded with 50 kg for 24 hours</li><li>No further tearing at the cut</li></ul></div><div class="test-copy"><h3>Water Resistance Test</h3><ul><li>After 1-minute full immersion</li><li>No visible water transfer under tissue pressure</li><li>Surface water repellency</li></ul></div></div></div><div class="video-grid"><div class="video-frame"><iframe src="https://player.vimeo.com/video/1182649593?badge=0&amp;autopause=0&amp;muted=1&amp;loop=1" allow="autoplay; fullscreen; picture-in-picture" title="Loomyco Tear Resistance Test"></iframe></div><div class="video-frame"><iframe src="https://player.vimeo.com/video/1182649455?badge=0&amp;autopause=0&amp;muted=1&amp;loop=1" allow="autoplay; fullscreen; picture-in-picture" title="Loomyco Water Resistance Test"></iframe></div></div></div></div></section>
+  <section class="section ecology-section"><div class="content"><h2>Ecological Participation</h2><div class="ecology-layout"><div class="image-stack"><figure class="compare-figure"><img src="assets/images/EcologicalParticipation-withoutloomyco.jpg" alt="Plant and soil test without Loomyco"><span class="image-label">without Loomyco</span></figure><figure class="compare-figure"><img src="assets/images/EcologicalParticipation-withloomyco.jpg" alt="Plant and soil test with Loomyco"><span class="image-label">with Loomyco</span></figure></div><aside class="ecology-side"><p class="body-large">Loomyco does not end as waste, it continues to participate in soil and plant ecologies after use.</p><div class="tests-group"><div class="test-copy"><h3>Sandy soil test</h3><p class="body">Poor soil became more cohesive with Loomyco added, suggesting early signs of reactivation.</p></div><div class="test-copy"><h3>Plant growth test</h3><p class="body">Cress germination and growth improved in both poor and regular soil with Loomyco added.</p></div></div></aside></div></div></section>
+  <section class="section green"><div class="content"><h2>Socio-Ecological Production</h2><div class="wide-video"><iframe src="https://player.vimeo.com/video/1190493213?badge=0&amp;autopause=0&amp;muted=1&amp;loop=1" allow="autoplay; fullscreen; picture-in-picture" title="Loomyco growth process"></iframe></div><div class="production-grid"><article class="production-item"><h3>Material</h3><p class="body">Economically and environmentally affordable, sustainable, and locally adaptable. Substantially lower in resource and energy demand than synthetic and cotton-based alternatives.</p></article><article class="production-item"><h3>Forming</h3><p class="body">Scaffold-based forming without rigid moulds, allowing flexible shaping and lower-cost production compared to conventional mould-dependent forming.</p></article><article class="production-item"><h3>Making</h3><p class="body">Combines handcraft with grow-made production. Handcraft allows natural variation in biomaterials to become a creative resource, while growth takes over part of the fabrication work.</p></article></div></div></section>
+  <footer class="footer"><div class="content footer-inner"><nav class="footer-nav" aria-label="Footer navigation"><a href="index.html">Steppe</a><details class="nav-dropdown"><summary>Practices</summary><div class="dropdown-menu"><a href="loomyco.html">Loomyco</a><a href="spoor.html">Spoor</a></div></details><a href="about.html">About</a><a href="mailto:steppe.pet@gmail.com">Contact</a></nav><p class="credits">© Zuriya Wang 2026<br>Patent pending</p></div></footer>
+
+<script>
+(function(){
+  function closeOtherDetails(current){
+    document.querySelectorAll('.nav-dropdown[open]').forEach(function(d){ if(d!==current) d.removeAttribute('open'); });
+  }
+  document.querySelectorAll('.nav-dropdown').forEach(function(d){
+    d.addEventListener('toggle', function(){ if(d.open) closeOtherDetails(d); });
+  });
+  if (window.matchMedia('(max-width: 760px)').matches && 'IntersectionObserver' in window) {
+    var targets = document.querySelectorAll('.image-swap, .hover-image');
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ e.target.classList.toggle('mobile-reveal', e.isIntersecting && e.intersectionRatio > 0.55); });
+    }, {threshold:[0,.55,.85]});
+    targets.forEach(function(el){ io.observe(el); });
+  }
+})();
+</script>
+
+</body>
+</html>
