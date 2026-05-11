@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Steppe</title>
+  <style>
+    :root {
+      --paper: #eae5d8;
+      --field: #e7fdbd;
+      --soil: #975649;
+      --ink: #975649;
+      --credit-green: #e7fdbd;
+      --gutter: clamp(30px, 5vw, 90px);
+      --content-max: 1400px;
+      --nav: clamp(15px, 1.18vw, 18px);
+      --title: clamp(46px, 7.4vw, 112px);
+      --section-title: clamp(34px, 4.8vw, 72px);
+      --body: clamp(18px, 1.55vw, 24px);
+      --small: clamp(15px, 1.1vw, 18px);
+      --footer: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .site-nav {
+      position: relative;
+      z-index: 5;
+      width: 100%;
+      padding: clamp(34px, 4vw, 56px) var(--gutter) 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: var(--nav);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      font-weight: 720;
+    }
+    .nav-inner { max-width: var(--content-max); margin: 0 auto; }
+    .nav-links {
+      width: min(100%, 940px);
+      display: grid;
+      grid-template-columns: repeat(5, max-content);
+      justify-content: space-between;
+      align-items: center;
+      gap: clamp(24px, 4vw, 82px);
+    }
+    .nav-links a { transition: opacity 180ms ease; }
+    .nav-links a:hover { opacity: .62; }
+    .nav-links .active { color: var(--soil); }
+
+    .about-hero {
+      background: var(--paper);
+      padding: clamp(88px, 10vw, 150px) var(--gutter) clamp(74px, 9vw, 132px);
+    }
+    .about-inner { max-width: var(--content-max); margin: 0 auto; }
+    .profile-grid {
+      display: grid;
+      grid-template-columns: minmax(320px, .92fr) minmax(0, 1.08fr);
+      gap: clamp(44px, 7vw, 112px);
+      align-items: start;
+    }
+    .portrait {
+      width: 100%;
+      display: block;
+      height: auto;
+      object-fit: contain;
+    }
+    .bio-title {
+      margin: 0 0 clamp(24px, 3vw, 40px);
+      font-size: clamp(34px, 4.2vw, 64px);
+      line-height: 1;
+      letter-spacing: -0.055em;
+      color: var(--soil);
+      font-weight: 790;
+    }
+    .body-copy {
+      margin: 0;
+      font-size: var(--body);
+      line-height: 1.52;
+      letter-spacing: -0.026em;
+      font-weight: 430;
+    }
+    .body-copy + .body-copy { margin-top: 1em; }
+
+    .team-section {
+      background: var(--field);
+      padding: clamp(82px, 10vw, 152px) var(--gutter);
+    }
+    .team-inner { max-width: var(--content-max); margin: 0 auto; }
+    .team-title {
+      margin: 0 0 clamp(48px, 6vw, 88px);
+      font-size: var(--section-title);
+      line-height: 1.02;
+      letter-spacing: -0.065em;
+      color: var(--soil);
+      font-weight: 810;
+      max-width: 900px;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .78fr) minmax(0, .78fr) minmax(420px, 1.55fr);
+      gap: clamp(34px, 4.5vw, 72px);
+      align-items: start;
+    }
+    .team-copy {
+      display: contents;
+    }
+    .member h3 {
+      margin: 0 0 .65em;
+      font-size: clamp(25px, 2.6vw, 42px);
+      line-height: 1;
+      letter-spacing: -0.045em;
+      font-weight: 790;
+    }
+    .member p {
+      margin: 0;
+      font-size: var(--body);
+      line-height: 1.52;
+      letter-spacing: -0.026em;
+      font-weight: 430;
+    }
+    .team-photo-wrap {
+      margin: 0;
+      align-self: start;
+      width: 100%;
+      max-width: 760px;
+      justify-self: end;
+      overflow: hidden;
+    }
+    .team-photo {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+    .caption {
+      margin: .9em 0 0;
+      font-size: var(--small);
+      line-height: 1.42;
+      letter-spacing: -0.015em;
+      opacity: .78;
+    }
+
+    .contact-strip {
+      background: var(--paper);
+      padding: clamp(68px, 8vw, 116px) var(--gutter);
+    }
+    .contact-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: clamp(36px, 6vw, 96px);
+      align-items: start;
+    }
+    .contact-title {
+      margin: 0;
+      font-size: clamp(30px, 3.8vw, 56px);
+      line-height: 1;
+      letter-spacing: -0.055em;
+      color: var(--field);
+      font-weight: 810;
+    }
+    .contact-text {
+      margin: 0;
+      font-size: var(--body);
+      line-height: 1.5;
+      letter-spacing: -0.025em;
+      font-weight: 430;
+    }
+    .contact-text a { font-weight: 720; }
+
+    .footer {
+      padding: clamp(48px, 6vw, 78px) var(--gutter);
+      background: var(--soil);
+      color: var(--field);
+      font-size: var(--footer);
+      line-height: 1.55;
+      letter-spacing: -0.015em;
+    }
+    .footer-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: clamp(40px, 7vw, 110px);
+      align-items: start;
+    }
+    .footer-nav {
+      display: grid;
+      grid-template-columns: repeat(5, max-content);
+      justify-content: space-between;
+      width: min(100%, 760px);
+      gap: 18px 34px;
+      font-weight: 720;
+    }
+    .credits { text-align: right; margin: 0; }
+
+    @media (max-width: 980px) {
+      .profile-grid,
+      .team-grid,
+      .contact-inner { grid-template-columns: 1fr; }
+      .portrait { max-width: 620px; }
+      .team-photo-wrap { max-width: 900px; justify-self: start; }
+      .team-copy { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      :root { --body: clamp(16px, 4.65vw, 20px); --footer: 16px; }
+      .site-nav { padding-top: 28px; }
+      .nav-links { width: 100%; gap: 12px 18px; }
+      .about-hero { padding-top: 86px; }
+      body { overflow-x: hidden; }
+      .profile-grid, .team-grid, .contact-inner { gap: 34px; }
+      .team-title { margin-bottom: 36px; }
+      .portrait, .team-photo-wrap { max-width: none; width: 100%; justify-self: stretch; }
+      .team-photo { width: 100%; max-width: 100%; height: auto; }
+      .team-grid { grid-template-columns: 1fr; }
+      .team-copy { display: grid; grid-template-columns: 1fr; gap: 34px; }
+      .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+      .footer-nav {
+        width: 100%;
+        grid-template-columns: repeat(5, minmax(0, auto));
+        justify-content: space-between;
+        gap: 8px;
+        font-size: clamp(11px, 3.2vw, 15px);
+      }
+      .footer-nav a { min-width: 0; overflow-wrap: anywhere; }
+      .credits { text-align: left; }
+    }
+  
+
+/* --- May 2026 navigation + mobile refinement patch --- */
+:root{--mobile-gutter:clamp(18px,4.6vw,30px);}
+.nav-links,.footer-nav{grid-template-columns:repeat(4,max-content)!important;align-items:start;}
+.nav-dropdown{position:relative;display:inline-block;line-height:inherit;}
+.nav-dropdown summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:.28em;white-space:nowrap;}
+.nav-dropdown summary::-webkit-details-marker{display:none;}
+.nav-dropdown summary::after{content:"▾";font-size:.72em;line-height:1;transform:translateY(.02em);}
+.dropdown-menu{display:none;position:absolute;left:0;top:100%;min-width:max-content;padding:.72em 1em .78em 0;background:var(--paper, var(--opening-paper, #eae5d8));z-index:20;}
+.site-nav .dropdown-menu{background:var(--paper, var(--opening-paper, #eae5d8));}
+.top-nav .dropdown-menu{background:var(--paper,#e3decf);}
+.footer .dropdown-menu{background:var(--soil);color:var(--field);}
+.nav-dropdown:hover .dropdown-menu,.nav-dropdown:focus-within .dropdown-menu,.nav-dropdown[open] .dropdown-menu{display:grid;gap:.45em;}
+.nav-dropdown:hover summary{opacity:.62;}
+.nav-dropdown a{display:block;white-space:nowrap;}
+.credits{line-height:1.35!important;}
+.hover-note,.zoom-note{margin:.55em 0 0;font-size:clamp(12px,.9vw,14px);line-height:1.35;font-weight:700;letter-spacing:-.01em;opacity:.68;}
+@media (max-width:760px){
+  :root{--gutter:var(--mobile-gutter);--image-gutter:var(--mobile-gutter);}
+  .site-nav,.top-nav{padding-left:var(--mobile-gutter)!important;padding-right:var(--mobile-gutter)!important;}
+  .nav-links,.footer-nav{width:100%!important;max-width:none!important;grid-template-columns:repeat(4,max-content)!important;justify-content:space-between!important;gap:8px!important;font-size:clamp(11px,3.05vw,14px)!important;}
+  .nav-dropdown summary::after{font-size:.66em;}
+  .dropdown-menu{padding:.62em .7em .62em 0;font-size:1em;}
+  .footer-inner{align-items:start!important;}
+  .credits{text-align:left!important;}
+  .hover-note{display:none;}
+  .image-swap.mobile-reveal .hover-img,.hover-image.mobile-reveal img.hover{opacity:1!important;}
+  .image-swap.mobile-reveal .base-img{opacity:0!important;}
+}
+
+.about-hero{padding-top:clamp(48px,6vw,86px)!important;}
+.team-grid{grid-template-columns:minmax(0,.92fr) minmax(520px,1.08fr)!important;}
+.team-copy{display:grid!important;grid-template-columns:1fr!important;gap:clamp(34px,4.5vw,62px)!important;}
+.team-photo-wrap{max-width:860px!important;}
+@media(max-width:980px){.team-grid{grid-template-columns:1fr!important;}.team-photo-wrap{max-width:none!important;}}
+
+
+/* --- May 11 navigation, footer, hover hint refinement --- */
+:root{--nav-size:clamp(16px,1.18vw,19px);--mobile-nav-size:clamp(14px,3.85vw,16px);}
+.site-nav,.top-nav{font-size:var(--nav-size)!important;}
+.nav-links{align-items:start!important;}
+.nav-dropdown{padding-bottom:.7em;}
+.dropdown-menu{min-width:136px!important;padding:.78em .72em .86em .02em!important;}
+.dropdown-menu a{padding:.32em .8em .32em 0!important;line-height:1.22!important;}
+.nav-dropdown:hover .dropdown-menu,.nav-dropdown:focus-within .dropdown-menu,.nav-dropdown[open] .dropdown-menu{gap:.18em!important;}
+figure,.hero-banner,.image-side{position:relative;}
+.hover-note{position:absolute!important;left:50%!important;bottom:10px!important;transform:translateX(-50%)!important;margin:0!important;padding:4px 9px!important;color:#fff!important;background:rgba(0,0,0,.22)!important;border-radius:999px!important;text-align:center!important;z-index:8!important;font-size:clamp(11px,.78vw,13px)!important;line-height:1.15!important;font-weight:720!important;letter-spacing:-.01em!important;opacity:.9!important;pointer-events:none!important;white-space:nowrap!important;}
+.footer{font-size:var(--nav-size)!important;}
+.footer-inner{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:clamp(22px,4vw,64px)!important;align-items:start!important;}
+.footer-nav{grid-column:1 / 5!important;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;width:100%!important;max-width:none!important;gap:clamp(22px,4vw,64px)!important;justify-content:stretch!important;align-items:start!important;font-size:inherit!important;}
+.footer-practices{display:flex;flex-direction:column;gap:.28em;font-weight:720;}
+.footer-practices>span{display:block;}
+.footer-practices>a{font-size:.88em;font-weight:650;opacity:.9;line-height:1.25;}
+.credits{grid-column:5!important;text-align:left!important;font-size:inherit!important;line-height:1.25!important;white-space:nowrap!important;}
+@media(max-width:760px){
+  :root{--mobile-gutter:clamp(14px,3.8vw,22px);--gutter:var(--mobile-gutter);--image-gutter:var(--mobile-gutter);}
+  .site-nav,.top-nav{font-size:var(--mobile-nav-size)!important;}
+  .nav-links,.footer-nav{font-size:var(--mobile-nav-size)!important;}
+  .nav-links{grid-template-columns:repeat(4,max-content)!important;gap:6px!important;justify-content:space-between!important;}
+  .nav-dropdown{padding-bottom:.55em;}
+  .dropdown-menu{min-width:118px!important;padding:.65em .55em .72em 0!important;}
+  .dropdown-menu a{padding:.38em .72em .38em 0!important;}
+  .footer{font-size:var(--mobile-nav-size)!important;padding-left:var(--mobile-gutter)!important;padding-right:var(--mobile-gutter)!important;}
+  .footer-inner{grid-template-columns:1fr!important;gap:18px!important;}
+  .footer-nav{grid-column:auto!important;grid-template-columns:repeat(4,max-content)!important;justify-content:space-between!important;gap:6px!important;width:100%!important;}
+  .footer-practices>a{display:none!important;}
+  .credits{grid-column:auto!important;font-size:12px!important;line-height:1.25!important;white-space:normal!important;text-align:left!important;}
+  .hover-note{display:none!important;}
+}
+
+
+
+/* --- May 12 refinement: nav auto-close, footer alignment, hover overlays, mobile reveal timing --- */
+.nav-dropdown{position:relative;}
+.dropdown-menu{min-width:158px!important;padding:.92em .9em 1em .04em!important;}
+.dropdown-menu a{padding:.46em .9em!important;line-height:1.25!important;}
+.nav-dropdown:hover .dropdown-menu,.nav-dropdown:focus-within .dropdown-menu,.nav-dropdown[open] .dropdown-menu{gap:.28em!important;}
+.footer-nav{align-items:flex-start!important;}
+.footer-nav > a,.footer-practices,.credits{margin-top:0!important;padding-top:0!important;line-height:1.12!important;}
+.footer-practices{display:flex!important;flex-direction:column!important;gap:.45em!important;justify-content:flex-start!important;}
+.footer-practices>span{display:block!important;line-height:1.12!important;}
+.footer-practices>a{display:block!important;font-size:.88em!important;font-weight:650!important;line-height:1.18!important;opacity:.9!important;}
+.hover-image,.image-swap,.zoom-image{position:relative!important;}
+.hover-note,.zoom-note{position:absolute!important;left:50%!important;bottom:10px!important;transform:translateX(-50%)!important;margin:0!important;padding:4px 9px!important;color:#fff!important;background:rgba(0,0,0,.22)!important;border-radius:999px!important;text-align:center!important;z-index:8!important;font-size:clamp(11px,.78vw,13px)!important;line-height:1.15!important;font-weight:720!important;letter-spacing:-.01em!important;opacity:.92!important;pointer-events:none!important;white-space:nowrap!important;}
+@media(max-width:760px){
+  .dropdown-menu{min-width:136px!important;padding:.78em .65em .84em 0!important;}
+  .dropdown-menu a{padding:.48em .72em!important;}
+  .footer-nav{grid-template-columns:repeat(4,max-content)!important;align-items:flex-start!important;}
+  .footer-practices>a{display:block!important;font-size:.72em!important;line-height:1.2!important;font-weight:650!important;}
+  .footer-practices{gap:.28em!important;}
+  .credits{font-size:.72em!important;line-height:1.22!important;}
+  .hover-note,.zoom-note{display:none!important;}
+}
+
+
+
+/* --- Final May 12 fixes --- */
+@media(max-width:760px){
+  .image-swap.mobile-reveal .hover-img,.hover-image.mobile-reveal img.hover{opacity:1!important;}
+  .image-swap.mobile-reveal .base-img{opacity:0!important;}
+}
+
+</style>
+</head>
+<body>
+  <header class="site-nav" aria-label="Primary navigation">
+    <nav class="nav-inner">
+      <div class="nav-links">
+        <a href="index.html">Steppe</a>
+        <details class="nav-dropdown"><summary>Practices</summary><div class="dropdown-menu"><a href="loomyco.html">Loomyco</a><a href="spoor.html">Spoor</a></div></details>
+        <a class="active" href="about.html">About</a>
+        <a href="mailto:steppe.pet@gmail.com">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="about-hero">
+      <div class="about-inner">
+        <div class="profile-grid">
+          <img class="portrait" src="assets/images/About-Zuriya.jpg" alt="Portrait of Zuriya Wang">
+          <div class="profile-copy">
+            <h2 class="bio-title">Zuriya Wang</h2>
+            <p class="body-copy">Zuriya Wang is a designer based between London and China, developing design research practices at the intersection of ecological design, multispecies design, product design and biodesign.</p>
+            <p class="body-copy">She trained at Central Saint Martins and later completed postgraduate study in Curating Contemporary Design at Kingston University, in partnership with the Design Museum, with additional study in circular economy through TU Delft. Before developing Steppe, she worked for over a decade across brand, packaging, product and interior design, developing projects from concept to production.</p>
+            <p class="body-copy">Steppe grows from Zuriya’s lifelong engagement with living systems, beginning in childhood through designing, making and maintaining small aquatic, reptile and invertebrate habitats. It is shaped by Daoist philosophy and East Asian animistic understandings of human–nature relations, deepened through field study into Mongolian nomadic lifeways, and grounded in everyday life with her daughter and companion animals.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="team-section">
+      <div class="team-inner">
+        <h2 class="team-title">Family Team behind Steppe</h2>
+        <div class="team-grid">
+          <div class="team-copy">
+            <article class="member">
+              <h3>Gwen Wang</h3>
+              <p>Gwen is Zuriya’s daughter and creative collaborator. Her questions, observations and hands-on involvement have shaped the project from its early development, including design proposition, material experiments, prototyping and the character design of Loomyco.</p>
+            </article>
+            <article class="member">
+              <h3>Dian</h3>
+              <p>Dian is the family’s adopted turtle. Living beside Zuriya’s desk, she has become a quiet daily presence — and occasional supervisor — in the development of Steppe.</p>
+            </article>
+          </div>
+          <figure class="team-photo-wrap">
+            <img class="team-photo" src="assets/images/About-Gwen-Dian.jpg" alt="Gwen and Dian">
+            <figcaption class="caption">Gwen and Dian, whose questions, care routines and daily presence have shaped Steppe from within the home.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-strip">
+      <div class="contact-inner">
+        <h2 class="contact-title">Contact</h2>
+        <p class="contact-text">For exhibitions, collaborations, press or research enquiries:<br><a href="mailto:steppe.pet@gmail.com">steppe.pet@gmail.com</a></p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <nav class="footer-nav" aria-label="Footer navigation"><a href="index.html">Steppe</a><div class="footer-practices"><span>Practices</span><a href="loomyco.html">Loomyco</a><a href="spoor.html">Spoor</a></div><a href="about.html">About</a><a href="mailto:steppe.pet@gmail.com">Contact</a></nav><p class="credits">© Zuriya Wang 2026<br>Patent pending</p>
+      </div>
+    </footer>
+  </main>
+
+
+<script>
+(function(){
+  function closeOtherDetails(current){
+    document.querySelectorAll('.nav-dropdown[open]').forEach(function(d){ if(d!==current) d.removeAttribute('open'); });
+  }
+  document.querySelectorAll('.nav-dropdown').forEach(function(d){
+    var timer=null;
+    function clear(){ if(timer){ clearTimeout(timer); timer=null; } }
+    function schedule(delay){ clear(); timer=setTimeout(function(){ d.removeAttribute('open'); }, delay); }
+    d.addEventListener('toggle', function(){ if(d.open){ closeOtherDetails(d); schedule(window.matchMedia('(hover: none)').matches ? 2400 : 3800); } });
+    d.addEventListener('mouseenter', clear);
+    d.addEventListener('mouseleave', function(){ schedule(450); });
+    d.addEventListener('focusout', function(){ setTimeout(function(){ if(!d.contains(document.activeElement)) d.removeAttribute('open'); },120); });
+  });
+  if (window.matchMedia('(max-width: 760px)').matches && 'IntersectionObserver' in window) {
+    var targets = document.querySelectorAll('.image-swap, .hover-image');
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ e.target.classList.toggle('mobile-reveal', e.isIntersecting); });
+    }, {rootMargin:'-32% 0px -32% 0px', threshold:0});
+    targets.forEach(function(el){ io.observe(el); });
+  }
+})();
+</script>
+
+
+</body>
+</html>

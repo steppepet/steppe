@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spoor — Steppe</title>
+  <style>
+    :root{
+      --paper:#eae5d8;
+      --field:#e7fdbd;
+      --soil:#975649;
+      --acid:#e7fdbd;
+      --max:1400px;
+      --gutter:clamp(30px,5vw,90px);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--paper);color:var(--soil);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+    a{color:inherit;text-decoration:none} img,iframe{display:block}
+    .content{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+    .top-nav{padding-top:clamp(42px,4.5vw,66px);display:flex;align-items:flex-start;justify-content:space-between;gap:clamp(24px,4vw,70px);font-size:clamp(14px,1.05vw,18px);font-weight:720;line-height:1.1}.nav-links{flex:1;max-width:760px;display:grid;grid-template-columns:repeat(5,max-content);justify-content:space-between;gap:16px 34px}.nav-links a,.footer-nav a{transition:opacity .18s ease}.nav-links a:hover,.footer-nav a:hover{opacity:.62}.inactive{cursor:default;opacity:.78}
+    .nav-wordmark{flex:0 1 400px;width:min(400px,34vw);margin-left:auto}.nav-wordmark img{width:100%;height:auto}
+    .hero{padding:clamp(54px,7vw,104px) 0 clamp(30px,4.5vw,68px)}
+    .hero-statement{max-width:1400px;margin:0;font-size:clamp(20px,2.05vw,34px);line-height:1.34;letter-spacing:-.04em;font-weight:430}
+    .hero-banner{width:100%;max-width:none;margin:clamp(44px,6vw,82px) auto 0;padding-left:var(--gutter);padding-right:var(--gutter)}
+    .hover-image{position:relative;width:100%;overflow:hidden;background:rgba(151,86,73,.1)}
+    .hover-image img{width:100%;height:100%;object-fit:cover;transition:opacity .45s ease,transform .45s ease}.hover-image img.hover{position:absolute;inset:0;opacity:0}.hover-image:hover img.hover{opacity:1}
+    .hero-banner .hover-image{aspect-ratio:16/9;max-height:78vh}
+    .structure-hover{aspect-ratio:4/5;background:transparent}.structure-hover img{width:100%;height:100%;object-fit:cover}
+
+    .coordinates{padding:clamp(28px,3.4vw,48px) 0 clamp(56px,7vw,96px)}
+    .coord-grid{display:grid;grid-template-columns:.48fr .52fr;border-top:2px solid var(--soil);border-bottom:2px solid var(--soil)}
+    .coord-item{padding:clamp(24px,3vw,42px) 0}.coord-item+.coord-item{border-left:2px solid var(--soil);padding-left:clamp(28px,4vw,60px)}
+    .coord-title{font-size:clamp(15px,1.2vw,19px);font-weight:780;margin:0 0 12px;letter-spacing:-.02em}.coord-text{font-size:clamp(20px,1.85vw,28px);line-height:1.2;letter-spacing:-.045em;margin:0}
+
+    .green{background:var(--field);padding:clamp(76px,10vw,138px) 0}.paper{background:var(--paper);padding:clamp(82px,11vw,150px) 0}.paper.tight{padding-top:clamp(54px,7vw,96px)}
+    .section-title{margin:0 0 clamp(34px,4.5vw,64px);font-size:clamp(34px,4.15vw,62px);line-height:.99;letter-spacing:-.065em;font-weight:760}
+    .body{font-size:clamp(17px,1.45vw,23px);line-height:1.48;letter-spacing:-.025em;margin:0}.body.readable{max-width:1120px}.muted-note{font-size:clamp(12px,.92vw,15px);line-height:1.38;letter-spacing:-.01em;margin-top:24px;font-weight:450;color:rgba(151,86,73,.72)}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(42px,6vw,86px);align-items:start}.split.reverse .image-side{grid-column:2}.split.reverse .text-side{grid-column:1;grid-row:1}
+    .image-side img,.image-side .hover-image{width:100%;height:auto}.image-side .hover-image img{aspect-ratio:auto;object-fit:contain}.image-side > img{object-fit:contain}
+    .zoom-image{cursor:zoom-in;overflow:hidden}.zoom-image img{transition:transform .2s ease;transform-origin:50% 50%}.zoom-image:hover img{transform:scale(1.85)}
+    .text-side{display:flex;flex-direction:column;min-height:100%}
+    .steps{display:grid;gap:clamp(16px,1.8vw,26px);margin-top:clamp(26px,3.6vw,48px)}
+    .step{display:grid;grid-template-columns:.86fr 1.14fr;gap:clamp(22px,3vw,42px);border-top:2px solid var(--soil);padding-top:16px}.step h3{font-size:clamp(18px,1.45vw,23px);line-height:1.08;letter-spacing:-.045em;margin:0}.step p{font-size:clamp(15px,1.08vw,18px);line-height:1.34;margin:0;letter-spacing:-.02em;font-weight:520}
+    .caption{margin-top:auto;padding-top:clamp(22px,3.6vw,48px);font-size:clamp(12px,.92vw,15px);line-height:1.38;font-weight:450;color:rgba(151,86,73,.68)}.caption.caption-left::before{content:"← ";font-weight:700;color:rgba(151,86,73,.8)}.caption.caption-right::before{content:"→ ";font-weight:700;color:rgba(151,86,73,.8)}
+    .banner{background:var(--soil);color:var(--field);padding:clamp(70px,9vw,125px) var(--gutter)}.banner-inner{max-width:calc(var(--max) + 180px);margin:0 auto}.banner-main{margin:0;font-size:clamp(46px,8vw,124px);line-height:.92;letter-spacing:-.08em;font-weight:800}.banner-sub{max-width:980px;margin:clamp(28px,4vw,58px) 0 0;font-size:clamp(20px,2.15vw,32px);line-height:1.28;letter-spacing:-.035em}
+
+    .video-wide{position:relative;width:100%;aspect-ratio:16/9;background:rgba(151,86,73,.14);overflow:hidden;margin-bottom:clamp(32px,4vw,58px)}.video-wide iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+    .test-copy{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(36px,6vw,88px)}.test-copy .body,.results{font-size:clamp(17px,1.45vw,23px);line-height:1.48;letter-spacing:-.025em;font-weight:430;color:var(--soil);margin:0}.results p{margin:0 0 .65em}.bullets{margin:0;padding-left:1.1em;font-weight:430}.bullets li{margin:.45em 0;font-weight:780}
+
+    .indoor-title{margin-bottom:clamp(34px,4.5vw,64px)}.indoor-grid{display:grid;grid-template-columns:1.16fr .84fr;gap:clamp(42px,6vw,86px);align-items:start}.indoor-grid img{width:100%;height:auto;object-fit:contain}.indoor-grid .text-side{padding-top:0}
+    .footer{background:var(--soil);color:var(--field);padding:clamp(50px,7vw,88px) 0}.footer-inner{display:grid;grid-template-columns:1fr auto;align-items:start;gap:clamp(34px,6vw,90px);font-size:clamp(15px,1.25vw,18px);line-height:1.4}.footer-nav{display:grid;grid-template-columns:repeat(5,max-content);justify-content:space-between;width:min(100%,760px);gap:16px 34px;font-weight:720}.credits{margin:0;text-align:right;font-weight:650}
+    .structure-hover{aspect-ratio:4/5;overflow:hidden}.structure-hover img{width:100%;height:100%;object-fit:cover;}
+    @media(max-width:900px){.top-nav{align-items:flex-start;flex-wrap:wrap}.nav-links{max-width:none;width:100%}.footer-inner{grid-template-columns:1fr}.footer-nav{width:100%}.credits{text-align:left}.text-side{min-height:auto}.caption{margin-top:22px;padding-top:0}.paper:last-of-type{padding-bottom:clamp(54px,8vw,90px)}.top-nav{padding-top:34px}.nav-wordmark{width:min(220px,44vw);flex-basis:min(220px,44vw);margin-left:auto}.hero-statement{font-size:clamp(19px,4.8vw,30px)}.coord-grid,.split,.test-copy,.indoor-grid{grid-template-columns:1fr}.coord-item+.coord-item{border-left:0;border-top:2px solid var(--soil);padding-left:0}.split.reverse .image-side,.split.reverse .text-side{grid-column:auto;grid-row:auto}.step{grid-template-columns:1fr;gap:8px}.hero-banner .hover-image{aspect-ratio:4/3}.footer-inner{flex-direction:column}}
+  
+
+    /* Mobile overflow guard: keeps footer/nav inside the viewport */
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    img, video {
+      max-width: 100%;
+    }
+
+    .footer, footer {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
+    .footer-inner {
+      width: 100%;
+      max-width: var(--content-max, 1400px);
+      min-width: 0;
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .footer-nav {
+      width: 100%;
+      max-width: 760px;
+      min-width: 0;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      justify-content: stretch;
+      align-items: start;
+      gap: 14px clamp(16px, 3vw, 36px);
+    }
+
+    .footer-nav a {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 760px) {
+      .footer, footer {
+        padding-left: var(--gutter, clamp(30px, 5vw, 90px));
+        padding-right: var(--gutter, clamp(30px, 5vw, 90px));
+      }
+      .footer-inner {
+        grid-template-columns: 1fr !important;
+        gap: 28px !important;
+      }
+      .footer-nav {
+        max-width: 100%;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px 18px;
+      }
+      .credits {
+        text-align: left !important;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .footer-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+  
+
+/* --- May 2026 navigation + mobile refinement patch --- */
+:root{--mobile-gutter:clamp(18px,4.6vw,30px);}
+.nav-links,.footer-nav{grid-template-columns:repeat(4,max-content)!important;align-items:start;}
+.nav-dropdown{position:relative;display:inline-block;line-height:inherit;}
+.nav-dropdown summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:.28em;white-space:nowrap;}
+.nav-dropdown summary::-webkit-details-marker{display:none;}
+.nav-dropdown summary::after{content:"▾";font-size:.72em;line-height:1;transform:translateY(.02em);}
+.dropdown-menu{display:none;position:absolute;left:0;top:100%;min-width:max-content;padding:.72em 1em .78em 0;background:var(--paper, var(--opening-paper, #eae5d8));z-index:20;}
+.site-nav .dropdown-menu{background:var(--paper, var(--opening-paper, #eae5d8));}
+.top-nav .dropdown-menu{background:var(--paper,#e3decf);}
+.footer .dropdown-menu{background:var(--soil);color:var(--field);}
+.nav-dropdown:hover .dropdown-menu,.nav-dropdown:focus-within .dropdown-menu,.nav-dropdown[open] .dropdown-menu{display:grid;gap:.45em;}
+.nav-dropdown:hover summary{opacity:.62;}
+.nav-dropdown a{display:block;white-space:nowrap;}
+.credits{line-height:1.35!important;}
+.hover-note,.zoom-note{margin:.55em 0 0;font-size:clamp(12px,.9vw,14px);line-height:1.35;font-weight:700;letter-spacing:-.01em;opacity:.68;}
+@media (max-width:760px){
+  :root{--gutter:var(--mobile-gutter);--image-gutter:var(--mobile-gutter);}
+  .site-nav,.top-nav{padding-left:var(--mobile-gutter)!important;padding-right:var(--mobile-gutter)!important;}
+  .nav-links,.footer-nav{width:100%!important;max-width:none!important;grid-template-columns:repeat(4,max-content)!important;justify-content:space-between!important;gap:8px!important;font-size:clamp(11px,3.05vw,14px)!important;}
+  .nav-dropdown summary::after{font-size:.66em;}
+  .dropdown-menu{padding:.62em .7em .62em 0;font-size:1em;}
+  .footer-inner{align-items:start!important;}
+  .credits{text-align:left!important;}
+  .hover-note{display:none;}
+  .image-swap.mobile-reveal .hover-img,.hover-image.mobile-reveal img.hover{opacity:1!important;}
+  .image-swap.mobile-reveal .base-img{opacity:0!important;}
+}
+
+
+@media(max-width:900px){.paper .split{gap:clamp(18px,5vw,28px)!important}.caption{margin-top:12px!important}.split+.split{margin-top:clamp(38px,8vw,58px)!important}.zoom-image{overflow:auto!important;-webkit-overflow-scrolling:touch;cursor:grab}.zoom-image img{transform:none!important;min-width:150%;max-width:none}.zoom-note{margin-top:.45em!important}}
+
+
+/* --- May 11 navigation, footer, hover hint refinement --- */
+:root{--nav-size:clamp(16px,1.18vw,19px);--mobile-nav-size:clamp(14px,3.85vw,16px);}
+.site-nav,.top-nav{font-size:var(--nav-size)!important;}
+.nav-links{align-items:start!important;}
+.nav-dropdown{padding-bottom:.7em;}
+.dropdown-menu{min-width:136px!important;padding:.78em .72em .86em .02em!important;}
+.dropdown-menu a{padding:.32em .8em .32em 0!important;line-height:1.22!important;}
+.nav-dropdown:hover .dropdown-menu,.nav-dropdown:focus-within .dropdown-menu,.nav-dropdown[open] .dropdown-menu{gap:.18em!important;}
+figure,.hero-banner,.image-side{position:relative;}
+.hover-note{position:absolute!important;left:50%!important;bottom:10px!important;transform:translateX(-50%)!important;margin:0!important;padding:4px 9px!important;color:#fff!important;background:rgba(0,0,0,.22)!important;border-radius:999px!important;text-align:center!important;z-index:8!important;font-size:clamp(11px,.78vw,13px)!important;line-height:1.15!important;font-weight:720!important;letter-spacing:-.01em!important;opacity:.9!important;pointer-events:none!important;white-space:nowrap!important;}
+.footer{font-size:var(--nav-size)!important;}
+.footer-inner{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:clamp(22px,4vw,64px)!important;align-items:start!important;}
+.footer-nav{grid-column:1 / 5!important;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;width:100%!important;max-width:none!important;gap:clamp(22px,4vw,64px)!important;justify-content:stretch!important;align-items:start!important;font-size:inherit!important;}
+.footer-practices{display:flex;flex-direction:column;gap:.28em;font-weight:720;}
+.footer-practices>span{display:block;}
+.footer-practices>a{font-size:.88em;font-weight:650;opacity:.9;line-height:1.25;}
+.credits{grid-column:5!important;text-align:left!important;font-size:inherit!important;line-height:1.25!important;white-space:nowrap!important;}
+@media(max-width:760px){
+  :root{--mobile-gutter:clamp(14px,3.8vw,22px);--gutter:var(--mobile-gutter);--image-gutter:var(--mobile-gutter);}
+  .site-nav,.top-nav{font-size:var(--mobile-nav-size)!important;}
+  .nav-links,.footer-nav{font-size:var(--mobile-nav-size)!important;}
+  .nav-links{grid-template-columns:repeat(4,max-content)!important;gap:6px!important;justify-content:space-between!important;}
+  .nav-dropdown{padding-bottom:.55em;}
+  .dropdown-menu{min-width:118px!important;padding:.65em .55em .72em 0!important;}
+  .dropdown-menu a{padding:.38em .72em .38em 0!important;}
+  .footer{font-size:var(--mobile-nav-size)!important;padding-left:var(--mobile-gutter)!important;padding-right:var(--mobile-gutter)!important;}
+  .footer-inner{grid-template-columns:1fr!important;gap:18px!important;}
+  .footer-nav{grid-column:auto!important;grid-template-columns:repeat(4,max-content)!important;justify-content:space-between!important;gap:6px!important;width:100%!important;}
+  .footer-practices>a{display:none!important;}
+  .credits{grid-column:auto!important;font-size:12px!important;line-height:1.25!important;white-space:normal!important;text-align:left!important;}
+  .hover-note{display:none!important;}
+}
+
+
+
+/* --- Spoor How it works spacing and image instruction refinement --- */
+.split.reverse{align-items:start!important;}
+.structure-hover{display:block!important;}
+.structure-hover + .hover-note{bottom:10px!important;}
+.zoom-note{position:static!important;transform:none!important;color:var(--soil)!important;background:transparent!important;border-radius:0!important;padding:0!important;margin:.5em 0 0!important;text-align:left!important;font-size:clamp(12px,.9vw,14px)!important;opacity:.68!important;white-space:normal!important;}
+@media(max-width:900px){
+  .paper .split{gap:24px!important;}
+  .paper .split.reverse{gap:24px!important;}
+  .zoom-note{display:none!important;}
+  .caption{margin-top:18px!important;}
+  .split.reverse .caption{margin-top:18px!important;}
+}
+
+
+
+/* --- May 12 refinement: nav auto-close, footer alignment, hover overlays, mobile reveal timing --- */
+.nav-dropdown{position:relative;}
+.dropdown-menu{min-width:158px!important;padding:.92em .9em 1em .04em!important;}
+.dropdown-menu a{padding:.46em .9em!important;line-height:1.25!important;}
+.nav-dropdown:hover .dropdown-menu,.nav-dropdown:focus-within .dropdown-menu,.nav-dropdown[open] .dropdown-menu{gap:.28em!important;}
+.footer-nav{align-items:flex-start!important;}
+.footer-nav > a,.footer-practices,.credits{margin-top:0!important;padding-top:0!important;line-height:1.12!important;}
+.footer-practices{display:flex!important;flex-direction:column!important;gap:.45em!important;justify-content:flex-start!important;}
+.footer-practices>span{display:block!important;line-height:1.12!important;}
+.footer-practices>a{display:block!important;font-size:.88em!important;font-weight:650!important;line-height:1.18!important;opacity:.9!important;}
+.hover-image,.image-swap,.zoom-image{position:relative!important;}
+.hover-note,.zoom-note{position:absolute!important;left:50%!important;bottom:10px!important;transform:translateX(-50%)!important;margin:0!important;padding:4px 9px!important;color:#fff!important;background:rgba(0,0,0,.22)!important;border-radius:999px!important;text-align:center!important;z-index:8!important;font-size:clamp(11px,.78vw,13px)!important;line-height:1.15!important;font-weight:720!important;letter-spacing:-.01em!important;opacity:.92!important;pointer-events:none!important;white-space:nowrap!important;}
+@media(max-width:760px){
+  .dropdown-menu{min-width:136px!important;padding:.78em .65em .84em 0!important;}
+  .dropdown-menu a{padding:.48em .72em!important;}
+  .footer-nav{grid-template-columns:repeat(4,max-content)!important;align-items:flex-start!important;}
+  .footer-practices>a{display:block!important;font-size:.72em!important;line-height:1.2!important;font-weight:650!important;}
+  .footer-practices{gap:.28em!important;}
+  .credits{font-size:.72em!important;line-height:1.22!important;}
+  .hover-note,.zoom-note{display:none!important;}
+}
+
+
+
+/* --- Final May 12 fixes --- */
+@media(max-width:760px){
+  .image-swap.mobile-reveal .hover-img,.hover-image.mobile-reveal img.hover{opacity:1!important;}
+  .image-swap.mobile-reveal .base-img{opacity:0!important;}
+}
+
+
+
+/* --- Spoor How it works alignment and mobile spacing fixes --- */
+.split.reverse,.split.reverse .image-side,.split.reverse .text-side{align-items:start!important;align-self:start!important;margin-top:0!important;}
+.structure-hover{aspect-ratio:4/5!important;width:100%!important;height:auto!important;overflow:hidden!important;display:block!important;}
+.structure-hover img{width:100%!important;height:100%!important;object-fit:cover!important;display:block!important;}
+.zoom-note .mobile-note{display:none;}
+.zoom-note .desktop-note{display:inline;}
+.zoom-image .zoom-note{position:absolute!important;left:50%!important;bottom:10px!important;transform:translateX(-50%)!important;color:#fff!important;background:rgba(0,0,0,.22)!important;border-radius:999px!important;padding:4px 9px!important;margin:0!important;text-align:center!important;white-space:nowrap!important;opacity:.92!important;}
+@media(max-width:900px){
+  .paper .split{gap:18px!important;}
+  .paper .split.reverse{gap:14px!important;margin-top:42px!important;}
+  .split.reverse .caption{margin-top:12px!important;}
+  .zoom-image{overflow-x:auto!important;overflow-y:hidden!important;-webkit-overflow-scrolling:touch!important;scrollbar-width:none!important;}
+  .zoom-image::-webkit-scrollbar{display:none!important;}
+  .zoom-image img{min-width:150%!important;max-width:none!important;transform:none!important;display:block!important;}
+  .zoom-note{display:block!important;}
+  .zoom-note .desktop-note{display:none!important;}
+  .zoom-note .mobile-note{display:inline!important;}
+  .zoom-image .zoom-note{display:block!important;}
+  .text-side .caption{margin-top:12px!important;}
+}
+
+</style>
+</head>
+<body>
+  <nav class="top-nav content"><div class="nav-links"><a href="index.html">Steppe</a><details class="nav-dropdown"><summary>Practices</summary><div class="dropdown-menu"><a href="loomyco.html">Loomyco</a><a href="spoor.html">Spoor</a></div></details><a href="about.html">About</a><a href="mailto:steppe.pet@gmail.com">Contact</a></div><a class="nav-wordmark" href="index.html" aria-label="Spoor"><img src="assets/images/spoor-wordmark-new.png" alt="Spoor"></a></nav>
+
+  <header class="hero">
+    <div class="content"><p class="hero-statement">Spoor helps human caregivers better understand their pets’ wellbeing preferences through the animals’ own instinctive choices. Drawing on Mongolian nomadic care practices, it translates the biodiversity conditions of the steppe into a domestic-scale interface where urban pets can engage freely and safely with diverse natural sensory cues organised into wellbeing themes. Cumulative engagement traces form interpretable patterns, bringing animal-led insight into everyday care and decision-making that remains difficult to access through human-led, indirect approaches.</p></div>
+    <div class="hero-banner"><div class="hover-image"><img src="assets/images/Spoor-prototype-dog.jpg" alt="Spoor prototype used by a dog"><img class="hover" src="assets/images/Spoor-prototype-cat.jpg" alt="Spoor prototype used by a cat"><p class="hover-note">Hover to view alternate image</p></div></div>
+  </header>
+
+  <section class="coordinates"><div class="content"><div class="coord-grid">
+    <div class="coord-item"><p class="coord-title">Multispecies participants</p><p class="coord-text">Animals · Plants · Humans</p></div>
+    <div class="coord-item"><p class="coord-title">Ecosystem functions</p><p class="coord-text">Information exchange · Sensory enrichment</p></div>
+  </div></div></section>
+
+  <section class="green"><div class="content">
+    <h2 class="section-title">What it addresses</h2>
+    <p class="body readable">“I wish I could speak to my dog” captures one of the most common struggles among dog owners. 58% worried about missing latent needs or failing to provide the care their pets actually need, while 45% believed pets should have more say about their own wellbeing, acknowledging that their needs may differ from, or extend beyond, what existing approaches such as observation, vet checks and monitoring devices can fully capture. This uncertainty can create real anxiety and may encourage overcompensation.</p>
+    <p class="body readable" style="margin-top:1.2em">Less acknowledged is the cost to animals: when their needs are not expressed in ways humans readily recognise, those needs are less likely to be perceived, understood or fulfilled. By contrast, expressions that fit human interpretations are more likely to be rewarded and reinforced, gradually narrowing interspecies communication towards more anthropomorphic forms.</p>
+    <p class="muted-note">* Street interview survey with 100 London dog owners, conducted by Zuriya Wang.</p>
+  </div></section>
+
+  <section class="paper"><div class="content">
+    <h2 class="section-title">How it works</h2>
+    <div class="split">
+      <div class="image-side zoom-image"><img src="assets/images/Spoor-sensory-cues-large.jpg" alt="Spoor sensory cue zones"><p class="zoom-note"><span class="desktop-note">Hover to enlarge</span><span class="mobile-note">Scroll to view</span></p></div>
+      <div class="text-side">
+        <p class="body">Animals are known to forage and self-select natural materials to support their wellbeing, a phenomenon referred to as zoopharmacognosy. Drawing on scientific and practice-based knowledge, Spoor translates this natural intelligence into an everyday care interface:</p>
+        <div class="steps">
+          <div class="step"><h3>Natural sensory cues</h3><p>Organised and embedded into wellbeing-themed zones.</p></div>
+          <div class="step"><h3>Free engagement</h3><p>Animals engage safely with the zones they are drawn to.</p></div>
+          <div class="step"><h3>Cumulative traces</h3><p>Repeated interaction leaves readable marks over time.</p></div>
+          <div class="step"><h3>Human interpretation</h3><p>Caregivers interpret emerging preference signals from differentiated wear patterns.</p></div>
+        </div>
+        <p class="caption caption-left">Each zone combines multiple herbs and natural materials into a distinct sensory cue associated with a particular wellbeing theme, drawing on applied zoopharmacognosy and established veterinary and natural remedy practices.</p>
+      </div>
+    </div>
+    <div class="split reverse" style="margin-top:clamp(70px,10vw,130px)">
+      <div class="image-side"><div class="hover-image structure-hover"><img src="assets/images/Spoor-structure.jpg" alt="Spoor interface structure"><img class="hover" src="assets/images/Spoor-wear.jpg" alt="Spoor wear trace revealing colour identifier"><p class="hover-note">Hover to view wear traces</p></div></div>
+      <div class="text-side">
+        <p class="body">Spoor is built as a pet-safe multi-layered bio-composite interface designed to hold and present natural sensory cues, supporting species-specific interactions and allowing interpretable traces to form gradually over time.</p>
+        <div class="steps">
+          <div class="step"><h3>Trace layer</h3><p>Records and accumulates interactions over time.</p></div>
+          <div class="step"><h3>Confinement layer</h3><p>Helps limit access and reduce the risk of excessive ingestion.</p></div>
+          <div class="step"><h3>Carrier layer</h3><p>Retains and preserves embedded natural sensory sources.</p></div>
+          <div class="step"><h3>Base layer</h3><p>Provides durable, moisture-resistant support.</p></div>
+        </div>
+        <p class="caption caption-right">Progressive wear reveals the colour identifier, allowing the caregiver to map traces to the corresponding theme. In standard prototypes, the surface layer remains mostly beige. In display prototypes, colours are made more visible to distinguish the themes.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="banner"><div class="banner-inner">
+    <p class="banner-main">Select → Engage → Trace → Interpret</p>
+    <p class="banner-sub">Spoor translates animals’ instinctive self-selection into cumulative traces that humans can read as emerging wellbeing preferences.</p>
+  </div></section>
+
+  <section class="green"><div class="content">
+    <h2 class="section-title">Open-Setting Performance</h2>
+    <div class="video-wide"><iframe src="https://player.vimeo.com/video/1182662357?badge=0&amp;autopause=0" allow="autoplay; fullscreen; picture-in-picture" title="Spoor Open-Setting Performance"></iframe></div>
+    <div class="test-copy">
+      <p class="body">Spoor was tested in a pet rescue centre with around 50 freely moving dogs and no prior training or prompting. During a 2-hour effective testing period, six dogs voluntarily approached and actively engaged with six themed boards and one blank control board without herb cues. Board colours were enhanced in post-production for video legibility.</p>
+      <div class="results"><p>Across 50 clear choices made by 6 dogs, identified through behaviours such as chewing, rolling, carrying away, guarding or repeated return:</p>
+        <ul class="bullets"><li>Each dog showed a preferred theme through repeated choices</li><li>Average repeat rate for preferred themes: 70%</li><li>The blank control board received 0 selections</li></ul>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="paper"><div class="content">
+    <h2 class="section-title indoor-title">Indoor Biodiversity</h2>
+    <div class="indoor-grid">
+      <img src="assets/images/Spoor-flat.jpg" alt="Spoor flat sensory interface">
+      <div class="text-side"><p class="body">Many urban pets spend most of their lives indoors, surrounded by artificial materials and with very limited access to nature. Yet they still retain strong self-selection instincts, chewing or ingesting houseplants, soil or whatever is accessible. 80% of owners reported observing and often struggling with this behaviour, as urban life makes it increasingly risky. Toxic plants, pollutants, waste and unsafe conditions both outdoors and indoors can turn a natural need into a source of worry.</p><p class="body" style="margin-top:1.2em">Rather than treating these instincts only as problems to control, Spoor explores how they might become a more supportive and informative part of domestic care by reintroducing biodiversity as an active participant in multispecies co-living.</p></div>
+    </div>
+  </div></section>
+
+  <footer class="footer"><div class="content footer-inner"><nav class="footer-nav" aria-label="Footer navigation"><a href="index.html">Steppe</a><div class="footer-practices"><span>Practices</span><a href="loomyco.html">Loomyco</a><a href="spoor.html">Spoor</a></div><a href="about.html">About</a><a href="mailto:steppe.pet@gmail.com">Contact</a></nav><p class="credits">© Zuriya Wang 2026<br>Patent pending</p></div></footer>
+
+  <script>
+    document.querySelectorAll('.zoom-image').forEach((box) => {
+      const img = box.querySelector('img');
+      box.addEventListener('mousemove', (event) => {
+        const rect = box.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+        img.style.transformOrigin = `${x}% ${y}%`;
+      });
+      box.addEventListener('mouseleave', () => {
+        img.style.transformOrigin = '50% 50%';
+      });
+    });
+  </script>
+
+
+<script>
+(function(){
+  function closeOtherDetails(current){
+    document.querySelectorAll('.nav-dropdown[open]').forEach(function(d){ if(d!==current) d.removeAttribute('open'); });
+  }
+  document.querySelectorAll('.nav-dropdown').forEach(function(d){
+    var timer=null;
+    function clear(){ if(timer){ clearTimeout(timer); timer=null; } }
+    function schedule(delay){ clear(); timer=setTimeout(function(){ d.removeAttribute('open'); }, delay); }
+    d.addEventListener('toggle', function(){ if(d.open){ closeOtherDetails(d); schedule(window.matchMedia('(hover: none)').matches ? 2400 : 3800); } });
+    d.addEventListener('mouseenter', clear);
+    d.addEventListener('mouseleave', function(){ schedule(450); });
+    d.addEventListener('focusout', function(){ setTimeout(function(){ if(!d.contains(document.activeElement)) d.removeAttribute('open'); },120); });
+  });
+  if (window.matchMedia('(max-width: 760px)').matches && 'IntersectionObserver' in window) {
+    var targets = document.querySelectorAll('.image-swap, .hover-image');
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ e.target.classList.toggle('mobile-reveal', e.isIntersecting); });
+    }, {rootMargin:'-32% 0px -32% 0px', threshold:0});
+    targets.forEach(function(el){ io.observe(el); });
+  }
+})();
+</script>
+
+
+</body>
+</html>

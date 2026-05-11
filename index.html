@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Steppe — Making the Multispecies Home a Living Ecosystem</title>
+  <style>
+    :root {
+      --paper: #e3decf;
+      --opening-paper: #eae5d8;
+      --field: #e7fdbd;
+      --soil: #975649;
+      --ink: #975649;
+      --credit-green: #bfe675;
+      --gutter: clamp(30px, 5vw, 90px);
+      --image-gutter: clamp(10px, 5vw, 90px);
+      --content-max: 1400px;
+
+      --slogan: clamp(27px, 3.05vw, 40px);
+      --statement: clamp(26px, 2.35vw, 32px);
+      --practice-title: clamp(40px, 3.7vw, 58px);
+      --practice-body: clamp(22px, 1.95vw, 30px);
+      --framework-body: clamp(20px, 1.55vw, 24px);
+      --framework-note: clamp(38px, 5.6vw, 88px);
+      --footer: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .content {
+      width: 100%;
+      max-width: var(--content-max);
+      margin: 0 auto;
+    }
+
+    .site-nav {
+      position: relative;
+      z-index: 5;
+      width: 100%;
+      padding: clamp(34px, 4vw, 56px) var(--gutter) 0;
+      background: var(--opening-paper);
+      color: var(--ink);
+      font-size: clamp(15px, 1.18vw, 18px);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      font-weight: 720;
+    }
+    .nav-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      display: block;
+    }
+    .nav-links {
+      width: min(100%, 940px);
+      display: grid;
+      grid-template-columns: repeat(5, max-content);
+      justify-content: space-between;
+      align-items: center;
+      gap: clamp(24px, 4vw, 82px);
+    }
+    .nav-links a { transition: opacity 180ms ease; }
+    .nav-links a:hover { opacity: .62; }
+    .nav-links .inactive { cursor: default; opacity: .78; }
+
+    .opening {
+      position: relative;
+      min-height: clamp(520px, 50vw, 720px);
+      padding: clamp(125px, 8vw, 180px) var(--gutter) clamp(54px, 6vw, 86px);
+      overflow: hidden;
+      background: var(--opening-paper);
+    }
+
+    .intro {
+      position: relative;
+      z-index: 2;
+      max-width: var(--content-max);
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 clamp(34px, 4vw, 58px);
+      max-width: 720px;
+      font-size: var(--slogan);
+      line-height: 1.22;
+      letter-spacing: -0.04em;
+      font-weight: 780;
+      font-style: normal;
+    }
+
+    .statement {
+      margin: 0;
+      max-width: 940px;
+      font-size: var(--statement);
+      line-height: 1.46;
+      letter-spacing: -0.03em;
+      font-weight: 430;
+      position: relative;
+      z-index: 2;
+    }
+    .statement + .statement { margin-top: .9em; }
+
+    .hero-logo {
+      position: absolute;
+      z-index: 0;
+      top: calc(10px - clamp(125px, 8vw, 180px));
+      right: 0;
+      display: block;
+      width: clamp(320px, 36vw, 660px);
+      transform: rotate(-1.5deg);
+      pointer-events: none;
+    }
+
+    .practices {
+      width: 100%;
+      padding: clamp(34px, 4.4vw, 66px) var(--image-gutter) clamp(88px, 10vw, 150px);
+      display: grid;
+      gap: clamp(76px, 8.6vw, 124px);
+      background: var(--opening-paper);
+    }
+
+    .practice {
+      display: block;
+      width: 100%;
+    }
+    .practice figure { margin: 0; position: relative; }
+    .image-swap {
+      position: relative;
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #d2caba;
+    }
+    .practice-img {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 320ms ease, transform 520ms ease;
+    }
+    .spoor .hover-img { object-fit: contain; background: #e8e1d1; }
+    .hover-img { opacity: 0; }
+    .image-swap:hover .hover-img,
+    .image-swap:focus-within .hover-img { opacity: 1; }
+    .image-swap:hover .base-img,
+    .image-swap:focus-within .base-img { opacity: 0; }
+    .image-swap:hover .practice-img,
+    .image-swap:focus-within .practice-img { transform: scale(1.01); }
+
+    .caption {
+      position: relative;
+      isolation: isolate;
+      margin: clamp(24px, 2.2vw, 34px) auto 0;
+      display: grid;
+      grid-template-columns: minmax(210px, 300px) minmax(0, 1fr);
+      gap: clamp(24px, 2.8vw, 42px);
+      align-items: start;
+      max-width: var(--content-max);
+      padding: 0 max(0px, calc(var(--gutter) - var(--image-gutter)));
+    }
+    .caption::before {
+      content: none;
+      position: absolute;
+      z-index: 1;
+      left: max(0px, calc(var(--gutter) - var(--image-gutter)));
+      bottom: -.08em;
+      width: clamp(300px, 25vw, 450px);
+      height: clamp(118px, 9vw, 168px);
+      background: var(--wordmark) left bottom / contain no-repeat;
+      opacity: 1;
+      transform: rotate(-4deg);
+      pointer-events: none;
+    }
+    .spoor .caption::before {
+      width: clamp(295px, 24vw, 430px);
+      height: clamp(126px, 10vw, 180px);
+      left: max(0px, calc(var(--gutter) - var(--image-gutter) - 18px));
+    }
+    .caption h2 {
+      position: relative;
+      margin: 0;
+      color: var(--credit-green);
+      font-size: var(--practice-title);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      font-weight: 760;
+      z-index: 2;
+    }
+    .caption h2::before { content: none; }
+    .spoor .caption h2::before { content: none; }
+    .caption > div { position: relative; z-index: 2; }
+    .caption p {
+      margin: 0;
+      max-width: none;
+      font-size: clamp(23px, 1.85vw, 31px);
+      line-height: 1.42;
+      letter-spacing: -0.02em;
+      font-weight: 430;
+    }
+    .tags {
+      grid-column: 2;
+      margin-top: .5em !important;
+      color: var(--ink);
+      font-size: clamp(21px, 1.55vw, 26px) !important;
+      line-height: 1.32 !important;
+      white-space: nowrap;
+      letter-spacing: -0.015em;
+      font-weight: 830 !important;
+    }
+    .loomyco { --wordmark: url("assets/images/loomyco-wordmark.png"); }
+    .spoor { --wordmark: url("assets/images/spoor-wordmark.png"); }
+
+    .framework {
+      background: var(--field);
+      padding: clamp(76px, 9vw, 128px) var(--gutter) clamp(88px, 11vw, 160px);
+      color: var(--ink);
+    }
+
+    .framework-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      display: grid;
+      gap: clamp(76px, 7vw, 112px);
+    }
+    .framework-section {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      column-gap: 0;
+      align-items: start;
+    }
+    .framework-title {
+      grid-column: 1 / -1;
+      margin-bottom: clamp(22px, 2.8vw, 42px);
+    }
+    .framework-title img { display: block; height: auto; }
+    .framework-title .why-title { width: clamp(120px, 10vw, 155px); }
+    .framework-title .what-title { width: clamp(150px, 13vw, 190px); }
+    .framework-title .how-title { width: clamp(120px, 10vw, 155px); }
+
+    .framework-pairs { display: grid; gap: clamp(20px, 2.15vw, 32px); }
+    .pair {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      column-gap: 0;
+      align-items: start;
+    }
+    .pair.reverse .copy { grid-column: 2; }
+    .pair.reverse .note { grid-column: 1; grid-row: 1; padding-left: 0; padding-right: clamp(26px, 3.4vw, 54px); }
+    .copy { padding-right: clamp(26px, 3.4vw, 54px); }
+    .note {
+      padding-left: clamp(26px, 3.4vw, 54px);
+      color: var(--credit-green);
+      font-size: var(--framework-note);
+      line-height: 1.05;
+      letter-spacing: -0.065em;
+      font-weight: 790;
+    }
+    .copy p {
+      margin: 0;
+      font-size: var(--framework-body);
+      line-height: 1.55;
+      letter-spacing: -0.025em;
+      font-weight: 430;
+    }
+    .copy p + p { margin-top: .82em; }
+
+
+    .why-section .note { font-size: clamp(34px, 4.3vw, 62px); }
+    .what-section .note { font-size: clamp(34px, 4.4vw, 64px); }
+    .how-section .note { font-size: clamp(34px, 4.4vw, 64px); }
+
+    .footer {
+      padding: clamp(48px, 6vw, 78px) var(--gutter);
+      background: var(--soil);
+      color: var(--field);
+      font-size: var(--footer);
+      line-height: 1.55;
+      letter-spacing: -0.015em;
+    }
+    .footer-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: clamp(40px, 7vw, 110px);
+      align-items: start;
+    }
+    .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      width: min(100%, 760px);
+      display: grid;
+      grid-template-columns: repeat(5, max-content);
+      justify-content: space-between;
+      gap: 18px 34px;
+      font-weight: 720;
+    }
+    .credits { text-align: right; margin: 0; }
+
+    @media (max-width: 960px) {
+      :root {
+        --slogan: clamp(25px, 5.1vw, 38px);
+        --statement: clamp(21px, 4.25vw, 30px);
+        --practice-title: clamp(40px, 9vw, 52px);
+        --practice-body: clamp(18px, 3.7vw, 24px);
+        --framework-body: clamp(17px, 3.25vw, 22px);
+        --framework-note: clamp(42px, 9.2vw, 68px);
+      }
+      .nav-links { width: 100%; }
+      .opening { min-height: auto; padding-top: 150px; }
+      .hero-logo { top: -140px; width: min(52vw, 500px); }
+      .framework-inner { gap: 96px; }
+      .framework-pairs { gap: 48px; }
+      .framework-section,
+      .pair,
+      .pair.reverse { grid-template-columns: 1fr; }
+      .pair.reverse .copy,
+      .pair.reverse .note { grid-column: 1; grid-row: auto; }
+      .copy, .note, .pair.reverse .note { padding-left: 0; padding-right: 0; }
+      .note { margin-bottom: .58em; }
+      .pair .note { grid-row: 1; }
+      .pair .copy { grid-row: 2; }
+    }
+
+    @media (max-width: 760px) {
+      :root {
+        --slogan: clamp(24px, 7vw, 34px);
+        --statement: clamp(19px, 5.4vw, 26px);
+        --practice-title: clamp(24px, 7vw, 34px);
+        --practice-body: clamp(16px, 4.8vw, 20px);
+        --framework-body: clamp(16px, 4.65vw, 20px);
+        --framework-note: clamp(26pt, 9vw, 26pt);
+        --footer: 16px;
+      }
+      .site-nav { padding-top: 28px; }
+      .nav-inner { display: block; }
+      .nav-links { gap: 12px 18px; }
+      .opening { padding-top: 224px; }
+      .hero-logo { width: min(62vw, 360px); top: -214px; right: -10px; }
+      .practices { gap: 72px; }
+      .image-swap { aspect-ratio: 4 / 3; }
+      .caption {
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: 26px;
+        padding: 0 max(0px, calc(var(--gutter) - var(--image-gutter)));
+      }
+      .tags { grid-column: 1; }
+      .tags { white-space: normal; }
+
+      .why-section .note, .what-section .note, .how-section .note { font-size: 26pt; line-height:1.08; margin-bottom: .45em; }
+      .framework-inner { gap: 88px; }
+      .framework-pairs { gap: 54px; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-nav { width: 100%; }
+      .credits { text-align: left; }
+    }
+
+
+    @media(min-width:961px){
+      .what-section .framework-title{grid-column:2;margin-bottom:clamp(22px,2.8vw,42px);}
+      .what-section .framework-pairs{grid-column:1 / -1;}
+      .how-section .note{font-size:clamp(34px,3.75vw,56px);}
+    }
+    @media(max-width:960px){
+      .note{font-size:26pt!important;line-height:1.12!important;margin-bottom:16px!important;}
+      .framework-pairs{gap:44px!important;}
+      .copy{padding-right:0!important;}
+      .what-section .note{padding-top:28px!important;}
+    }
+  
+
+    /* Mobile overflow guard: keeps footer/nav inside the viewport */
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    img, video {
+      max-width: 100%;
+    }
+
+    .footer, footer {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
+    .footer-inner {
+      width: 100%;
+      max-width: var(--content-max, 1400px);
+      min-width: 0;
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .footer-nav {
+      width: 100%;
+      max-width: 760px;
+      min-width: 0;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      justify-content: stretch;
+      align-items: start;
+      gap: 14px clamp(16px, 3vw, 36px);
+    }
+
+    .footer-nav a {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 760px) {
+      .footer, footer {
+        padding-left: var(--gutter, clamp(30px, 5vw, 90px));
+        padding-right: var(--gutter, clamp(30px, 5vw, 90px));
+      }
+      .footer-inner {
+        grid-template-columns: 1fr !important;
+        gap: 28px !important;
+      }
+      .footer-nav {
+        max-width: 100%;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px 18px;
+      }
+      .credits {
+        text-align: left !important;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .footer-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+  
+
+/* --- May 2026 navigation + mobile refinement patch --- */
+:root{--mobile-gutter:clamp(18px,4.6vw,30px);}
+.nav-links,.footer-nav{grid-template-columns:repeat(4,max-content)!important;align-items:start;}
+.nav-dropdown{position:relative;display:inline-block;line-height:inherit;}
+.nav-dropdown summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:.28em;white-space:nowrap;}
+.nav-dropdown summary::-webkit-details-marker{display:none;}
+.nav-dropdown summary::after{content:"▾";font-size:.72em;line-height:1;transform:translateY(.02em);}
+.dropdown-menu{display:none;position:absolute;left:0;top:100%;min-width:max-content;padding:.72em 1em .78em 0;background:var(--paper, var(--opening-paper, #eae5d8));z-index:20;}
+.site-nav .dropdown-menu{background:var(--paper, var(--opening-paper, #eae5d8));}
+.top-nav .dropdown-menu{background:var(--paper,#e3decf);}
+.footer .dropdown-menu{background:var(--soil);color:var(--field);}
+.nav-dropdown:hover .dropdown-menu,.nav-dropdown:focus-within .dropdown-menu,.nav-dropdown[open] .dropdown-menu{display:grid;gap:.45em;}
+.nav-dropdown:hover summary{opacity:.62;}
+.nav-dropdown a{display:block;white-space:nowrap;}
+.credits{line-height:1.35!important;}
+.hover-note,.zoom-note{margin:.55em 0 0;font-size:clamp(12px,.9vw,14px);line-height:1.35;font-weight:700;letter-spacing:-.01em;opacity:.68;}
+@media (max-width:760px){
+  :root{--gutter:var(--mobile-gutter);--image-gutter:var(--mobile-gutter);}
+  .site-nav,.top-nav{padding-left:var(--mobile-gutter)!important;padding-right:var(--mobile-gutter)!important;}
+  .nav-links,.footer-nav{width:100%!important;max-width:none!important;grid-template-columns:repeat(4,max-content)!important;justify-content:space-between!important;gap:8px!important;font-size:clamp(11px,3.05vw,14px)!important;}
+  .nav-dropdown summary::after{font-size:.66em;}
+  .dropdown-menu{padding:.62em .7em .62em 0;font-size:1em;}
+  .footer-inner{align-items:start!important;}
+  .credits{text-align:left!important;}
+  .hover-note{display:none;}
+  .image-swap.mobile-reveal .hover-img,.hover-image.mobile-reveal img.hover{opacity:1!important;}
+  .image-swap.mobile-reveal .base-img{opacity:0!important;}
+}
+
+
+
+/* --- May 11 navigation, footer, hover hint refinement --- */
+:root{--nav-size:clamp(16px,1.18vw,19px);--mobile-nav-size:clamp(14px,3.85vw,16px);}
+.site-nav,.top-nav{font-size:var(--nav-size)!important;}
+.nav-links{align-items:start!important;}
+.nav-dropdown{padding-bottom:.7em;}
+.dropdown-menu{min-width:136px!important;padding:.78em .72em .86em .02em!important;}
+.dropdown-menu a{padding:.32em .8em .32em 0!important;line-height:1.22!important;}
+.nav-dropdown:hover .dropdown-menu,.nav-dropdown:focus-within .dropdown-menu,.nav-dropdown[open] .dropdown-menu{gap:.18em!important;}
+figure,.hero-banner,.image-side{position:relative;}
+.hover-note{position:absolute!important;left:50%!important;bottom:10px!important;transform:translateX(-50%)!important;margin:0!important;padding:4px 9px!important;color:#fff!important;background:rgba(0,0,0,.22)!important;border-radius:999px!important;text-align:center!important;z-index:8!important;font-size:clamp(11px,.78vw,13px)!important;line-height:1.15!important;font-weight:720!important;letter-spacing:-.01em!important;opacity:.9!important;pointer-events:none!important;white-space:nowrap!important;}
+.footer{font-size:var(--nav-size)!important;}
+.footer-inner{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:clamp(22px,4vw,64px)!important;align-items:start!important;}
+.footer-nav{grid-column:1 / 5!important;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;width:100%!important;max-width:none!important;gap:clamp(22px,4vw,64px)!important;justify-content:stretch!important;align-items:start!important;font-size:inherit!important;}
+.footer-practices{display:flex;flex-direction:column;gap:.28em;font-weight:720;}
+.footer-practices>span{display:block;}
+.footer-practices>a{font-size:.88em;font-weight:650;opacity:.9;line-height:1.25;}
+.credits{grid-column:5!important;text-align:left!important;font-size:inherit!important;line-height:1.25!important;white-space:nowrap!important;}
+@media(max-width:760px){
+  :root{--mobile-gutter:clamp(14px,3.8vw,22px);--gutter:var(--mobile-gutter);--image-gutter:var(--mobile-gutter);}
+  .site-nav,.top-nav{font-size:var(--mobile-nav-size)!important;}
+  .nav-links,.footer-nav{font-size:var(--mobile-nav-size)!important;}
+  .nav-links{grid-template-columns:repeat(4,max-content)!important;gap:6px!important;justify-content:space-between!important;}
+  .nav-dropdown{padding-bottom:.55em;}
+  .dropdown-menu{min-width:118px!important;padding:.65em .55em .72em 0!important;}
+  .dropdown-menu a{padding:.38em .72em .38em 0!important;}
+  .footer{font-size:var(--mobile-nav-size)!important;padding-left:var(--mobile-gutter)!important;padding-right:var(--mobile-gutter)!important;}
+  .footer-inner{grid-template-columns:1fr!important;gap:18px!important;}
+  .footer-nav{grid-column:auto!important;grid-template-columns:repeat(4,max-content)!important;justify-content:space-between!important;gap:6px!important;width:100%!important;}
+  .footer-practices>a{display:none!important;}
+  .credits{grid-column:auto!important;font-size:12px!important;line-height:1.25!important;white-space:normal!important;text-align:left!important;}
+  .hover-note{display:none!important;}
+}
+
+
+/* --- Home-specific refinements --- */
+.intro{isolation:isolate;}
+.intro h1,.intro .statement{position:relative;z-index:3;}
+.hero-logo{z-index:1!important;}
+@media(max-width:760px){.spoor .hover-img{object-fit:cover!important;background:#e8e1d1;}.caption h2{font-size:clamp(34px,9.5vw,46px)!important;}}
+
+
+
+/* --- May 12 refinement: nav auto-close, footer alignment, hover overlays, mobile reveal timing --- */
+.nav-dropdown{position:relative;}
+.dropdown-menu{min-width:158px!important;padding:.92em .9em 1em .04em!important;}
+.dropdown-menu a{padding:.46em .9em!important;line-height:1.25!important;}
+.nav-dropdown:hover .dropdown-menu,.nav-dropdown:focus-within .dropdown-menu,.nav-dropdown[open] .dropdown-menu{gap:.28em!important;}
+.footer-nav{align-items:flex-start!important;}
+.footer-nav > a,.footer-practices,.credits{margin-top:0!important;padding-top:0!important;line-height:1.12!important;}
+.footer-practices{display:flex!important;flex-direction:column!important;gap:.45em!important;justify-content:flex-start!important;}
+.footer-practices>span{display:block!important;line-height:1.12!important;}
+.footer-practices>a{display:block!important;font-size:.88em!important;font-weight:650!important;line-height:1.18!important;opacity:.9!important;}
+.hover-image,.image-swap,.zoom-image{position:relative!important;}
+.hover-note,.zoom-note{position:absolute!important;left:50%!important;bottom:10px!important;transform:translateX(-50%)!important;margin:0!important;padding:4px 9px!important;color:#fff!important;background:rgba(0,0,0,.22)!important;border-radius:999px!important;text-align:center!important;z-index:8!important;font-size:clamp(11px,.78vw,13px)!important;line-height:1.15!important;font-weight:720!important;letter-spacing:-.01em!important;opacity:.92!important;pointer-events:none!important;white-space:nowrap!important;}
+@media(max-width:760px){
+  .dropdown-menu{min-width:136px!important;padding:.78em .65em .84em 0!important;}
+  .dropdown-menu a{padding:.48em .72em!important;}
+  .footer-nav{grid-template-columns:repeat(4,max-content)!important;align-items:flex-start!important;}
+  .footer-practices>a{display:block!important;font-size:.72em!important;line-height:1.2!important;font-weight:650!important;}
+  .footer-practices{gap:.28em!important;}
+  .credits{font-size:.72em!important;line-height:1.22!important;}
+  .hover-note,.zoom-note{display:none!important;}
+}
+
+
+
+/* --- Final May 12 fixes --- */
+@media(max-width:760px){
+  .image-swap.mobile-reveal .hover-img,.hover-image.mobile-reveal img.hover{opacity:1!important;}
+  .image-swap.mobile-reveal .base-img{opacity:0!important;}
+}
+
+</style>
+</head>
+<body>
+  <header class="site-nav" aria-label="Primary navigation">
+    <nav class="nav-inner">
+      <div class="nav-links">
+        <a href="index.html">Steppe</a>
+        <details class="nav-dropdown"><summary>Practices</summary><div class="dropdown-menu"><a href="loomyco.html">Loomyco</a><a href="spoor.html">Spoor</a></div></details>
+        <a href="about.html">About</a>
+        <a href="mailto:steppe.pet@gmail.com">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="opening">
+      <div class="intro">
+        <h1>Making the Multispecies<br>Home a Living Ecosystem</h1>
+        <p class="statement">Steppe designs everyday objects as ecological infrastructure for multispecies co-living in urban homes, informed by long-established Mongolian nomadic lifeways where multispecies relations are vital infrastructure for life, resilience and freedom.</p>
+        <p class="statement">It creates conditions for humans, animals, plants and microbes to relate and work together as an ecological network, through which natural intelligence embedded in diverse species, materials and ecological flows can be enabled to help address everyday co-living problems and wider ecological concerns.</p>
+        <img class="hero-logo" src="assets/images/steppe-logo.png" alt="Steppe">
+      </div>
+    </section>
+
+    <section class="practices" aria-label="Practices">
+      <a class="practice loomyco" href="loomyco.html">
+        <figure>
+          <span class="image-swap"><img class="practice-img base-img" src="assets/images/loomyco-hero.jpg" alt="Loomyco edible pet soft toy photographed outdoors among plants and grasses"><img class="practice-img hover-img" src="assets/images/loomyco-hero-hover.jpg" alt="Loomyco alternate view on hover"><span class="hover-note">Hover to view alternate image</span></span>
+        </figure>
+        <div class="caption">
+          <h2>Loomyco</h2>
+          <div>
+            <p>Loofah–mycelium bio-composite soft toy that turns play into nourishment, damage into transformation, and waste into ecological participation.</p>
+            <p class="tags">Behaviour support · Digestible · Zero-waste · Soil ecology</p>
+          </div>
+        </div>
+      </a>
+
+      <a class="practice spoor" href="spoor.html">
+        <figure>
+          <span class="image-swap"><img class="practice-img base-img" src="assets/images/spoor-hero.jpg" alt="Spoor animal self-selection interface photographed outdoors in grasses"><img class="practice-img hover-img" src="assets/images/spoor-hero-hover.jpg" alt="Spoor sensory cues shown on hover"><span class="hover-note">Hover to view alternate image</span></span>
+        </figure>
+        <div class="caption">
+          <h2>Spoor</h2>
+          <div>
+            <p>Animal self-selection interface that reintroduces biodiversity into everyday care, bringing animal-led insight into their own wellbeing choices and decision-making.</p>
+            <p class="tags">Information exchange · Natural sensory · Cumulative traces · No training</p>
+          </div>
+        </div>
+      </a>
+    </section>
+
+    <section class="framework">
+      <div class="framework-inner">
+        <section class="framework-section why-section">
+          <div class="framework-title"><img class="why-title" src="assets/images/why-title.png" alt="Why"></div>
+          <div class="framework-pairs" style="grid-column: 1 / -1;">
+            <div class="pair">
+              <div class="copy"><p>The word ecology is rooted in the Greek oikos, meaning “household” or “place to live”. Yet today, ecology is often imagined as something outside the home, rather than something that begins within it.</p></div>
+              <div class="note">Ecology begins at home</div>
+            </div>
+            <div class="pair">
+              <div class="copy"><p>Urban domestic life is now more multispecies than at any time in modern history. More than half of households worldwide now live with pets. Many also keep houseplants, while urban expansion has brought wildlife, insects, and microbes into close cohabitation with us.</p></div>
+              <div class="note">Domestic life is multispecies</div>
+            </div>
+            <div class="pair">
+              <div class="copy"><p>The home is a unique ecosystem, a primary site where human–nature relations are practised, normalised and materialised through everyday life. It shapes how people perceive and engage with nonhumans, and how we understand our place within the wider natural world.</p></div>
+              <div class="note">Home shapes human–nature relations</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="framework-section what-section">
+          <div class="framework-title"><img class="what-title" src="assets/images/what-title.png" alt="What"></div>
+          <div class="framework-pairs" style="grid-column: 1 / -1;">
+            <div class="pair reverse">
+              <div class="copy"><p>What makes a home a living system rather than a container of life is not living things, nor even shared space, but the relations between species. An ecosystem is a system of relations, not an arrangement of things.</p><p>On the Mongolian steppe, the most critical condition for life is not material, but relational. Health, safety, and abundance depend not only on resources, but on how relations work. Autonomy depends on cooperation, resilience on diversity, and freedom on belonging.</p><p>However, relations do not happen automatically, but are enabled by ecological infrastructures at different scales: from the steppe itself to countless micro-interfaces such as flowers and roots. They create ecological affordances through which different species can recognise, interact with and respond to one another.</p></div>
+              <div class="note">An ecosystem is a system of relations, not an arrangement of things.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="framework-section how-section">
+          <div class="framework-title"><img class="how-title" src="assets/images/how-title.png" alt="How"></div>
+          <div class="framework-pairs" style="grid-column: 1 / -1;">
+            <div class="pair">
+              <div class="copy"><p>I once asked a nomadic family how they managed thousands of animals so effortlessly. “We don’t manage them. We just find the pasture they like. They find what they need and treat themselves better than we or most vets could.” Nomadic herders are not omnipotent problem-solvers but experts in creating conditions for nature’s intelligence to do the work.</p></div>
+              <div class="note">Nature as Manager</div>
+            </div>
+            <div class="pair">
+              <div class="copy"><p>Multispecies co-living in urban homes is not always harmonious, from destructive pet behaviours to pigeon droppings on the balcony. Rather than restrict, suppress or separate nonhumans, Steppe designs everyday objects as interfaces that bring different species into relation, like flowers and roots in natural systems, turning friction into opportunities for new relations, cooperation and transformation.</p></div>
+              <div class="note">Design as Enabler</div>
+            </div>
+            <div class="pair">
+              <div class="copy"><p>Pets occupy a critical position in the home ecosystem, where “love-diversity” and “bio-diversity” are deeply intertwined. Steppe works with pets as ecological mediators, not only as animals to be cared for, but as agents through which new possibilities and tensions of multispecies co-living can unfold.</p></div>
+              <div class="note">Pet as Mediator</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <nav class="footer-nav" aria-label="Footer navigation"><a href="index.html">Steppe</a><div class="footer-practices"><span>Practices</span><a href="loomyco.html">Loomyco</a><a href="spoor.html">Spoor</a></div><a href="about.html">About</a><a href="mailto:steppe.pet@gmail.com">Contact</a></nav><p class="credits">© Zuriya Wang 2026<br>Patent pending</p>
+      </div>
+    </footer>
+  </main>
+
+
+<script>
+(function(){
+  function closeOtherDetails(current){
+    document.querySelectorAll('.nav-dropdown[open]').forEach(function(d){ if(d!==current) d.removeAttribute('open'); });
+  }
+  document.querySelectorAll('.nav-dropdown').forEach(function(d){
+    var timer=null;
+    function clear(){ if(timer){ clearTimeout(timer); timer=null; } }
+    function schedule(delay){ clear(); timer=setTimeout(function(){ d.removeAttribute('open'); }, delay); }
+    d.addEventListener('toggle', function(){ if(d.open){ closeOtherDetails(d); schedule(window.matchMedia('(hover: none)').matches ? 2400 : 3800); } });
+    d.addEventListener('mouseenter', clear);
+    d.addEventListener('mouseleave', function(){ schedule(450); });
+    d.addEventListener('focusout', function(){ setTimeout(function(){ if(!d.contains(document.activeElement)) d.removeAttribute('open'); },120); });
+  });
+  if (window.matchMedia('(max-width: 760px)').matches && 'IntersectionObserver' in window) {
+    var targets = document.querySelectorAll('.image-swap, .hover-image');
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ e.target.classList.toggle('mobile-reveal', e.isIntersecting); });
+    }, {rootMargin:'-32% 0px -32% 0px', threshold:0});
+    targets.forEach(function(el){ io.observe(el); });
+  }
+})();
+</script>
+
+
+</body>
+</html>
