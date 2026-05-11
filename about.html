@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Steppe</title>
+  <style>
+    :root {
+      --paper: #eae5d8;
+      --field: #e7fdbd;
+      --soil: #975649;
+      --ink: #975649;
+      --credit-green: #e7fdbd;
+      --gutter: clamp(30px, 5vw, 90px);
+      --content-max: 1400px;
+      --nav: clamp(15px, 1.18vw, 18px);
+      --title: clamp(46px, 7.4vw, 112px);
+      --section-title: clamp(34px, 4.8vw, 72px);
+      --body: clamp(18px, 1.55vw, 24px);
+      --small: clamp(15px, 1.1vw, 18px);
+      --footer: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .site-nav {
+      position: relative;
+      z-index: 5;
+      width: 100%;
+      padding: clamp(34px, 4vw, 56px) var(--gutter) 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: var(--nav);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      font-weight: 720;
+    }
+    .nav-inner { max-width: var(--content-max); margin: 0 auto; }
+    .nav-links {
+      width: min(100%, 940px);
+      display: grid;
+      grid-template-columns: repeat(5, max-content);
+      justify-content: space-between;
+      align-items: center;
+      gap: clamp(24px, 4vw, 82px);
+    }
+    .nav-links a { transition: opacity 180ms ease; }
+    .nav-links a:hover { opacity: .62; }
+    .nav-links .active { color: var(--soil); }
+
+    .about-hero {
+      background: var(--paper);
+      padding: clamp(88px, 10vw, 150px) var(--gutter) clamp(74px, 9vw, 132px);
+    }
+    .about-inner { max-width: var(--content-max); margin: 0 auto; }
+    .profile-grid {
+      display: grid;
+      grid-template-columns: minmax(320px, .92fr) minmax(0, 1.08fr);
+      gap: clamp(44px, 7vw, 112px);
+      align-items: start;
+    }
+    .portrait {
+      width: 100%;
+      display: block;
+      height: auto;
+      object-fit: contain;
+    }
+    .bio-title {
+      margin: 0 0 clamp(24px, 3vw, 40px);
+      font-size: clamp(34px, 4.2vw, 64px);
+      line-height: 1;
+      letter-spacing: -0.055em;
+      color: var(--soil);
+      font-weight: 790;
+    }
+    .body-copy {
+      margin: 0;
+      font-size: var(--body);
+      line-height: 1.52;
+      letter-spacing: -0.026em;
+      font-weight: 430;
+    }
+    .body-copy + .body-copy { margin-top: 1em; }
+
+    .team-section {
+      background: var(--field);
+      padding: clamp(82px, 10vw, 152px) var(--gutter);
+    }
+    .team-inner { max-width: var(--content-max); margin: 0 auto; }
+    .team-title {
+      margin: 0 0 clamp(48px, 6vw, 88px);
+      font-size: var(--section-title);
+      line-height: 1.02;
+      letter-spacing: -0.065em;
+      color: var(--soil);
+      font-weight: 810;
+      max-width: 900px;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .78fr) minmax(0, .78fr) minmax(420px, 1.55fr);
+      gap: clamp(34px, 4.5vw, 72px);
+      align-items: start;
+    }
+    .team-copy {
+      display: contents;
+    }
+    .member h3 {
+      margin: 0 0 .65em;
+      font-size: clamp(25px, 2.6vw, 42px);
+      line-height: 1;
+      letter-spacing: -0.045em;
+      font-weight: 790;
+    }
+    .member p {
+      margin: 0;
+      font-size: var(--body);
+      line-height: 1.52;
+      letter-spacing: -0.026em;
+      font-weight: 430;
+    }
+    .team-photo-wrap {
+      margin: 0;
+      align-self: start;
+      width: 100%;
+      max-width: 760px;
+      justify-self: end;
+      overflow: hidden;
+    }
+    .team-photo {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+    .caption {
+      margin: .9em 0 0;
+      font-size: var(--small);
+      line-height: 1.42;
+      letter-spacing: -0.015em;
+      opacity: .78;
+    }
+
+    .contact-strip {
+      background: var(--paper);
+      padding: clamp(68px, 8vw, 116px) var(--gutter);
+    }
+    .contact-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: clamp(36px, 6vw, 96px);
+      align-items: start;
+    }
+    .contact-title {
+      margin: 0;
+      font-size: clamp(30px, 3.8vw, 56px);
+      line-height: 1;
+      letter-spacing: -0.055em;
+      color: var(--field);
+      font-weight: 810;
+    }
+    .contact-text {
+      margin: 0;
+      font-size: var(--body);
+      line-height: 1.5;
+      letter-spacing: -0.025em;
+      font-weight: 430;
+    }
+    .contact-text a { font-weight: 720; }
+
+    .footer {
+      padding: clamp(48px, 6vw, 78px) var(--gutter);
+      background: var(--soil);
+      color: var(--field);
+      font-size: var(--footer);
+      line-height: 1.55;
+      letter-spacing: -0.015em;
+    }
+    .footer-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: clamp(40px, 7vw, 110px);
+      align-items: start;
+    }
+    .footer-nav {
+      display: grid;
+      grid-template-columns: repeat(5, max-content);
+      justify-content: space-between;
+      width: min(100%, 760px);
+      gap: 18px 34px;
+      font-weight: 720;
+    }
+    .credits { text-align: right; margin: 0; }
+
+    @media (max-width: 980px) {
+      .profile-grid,
+      .team-grid,
+      .contact-inner { grid-template-columns: 1fr; }
+      .portrait { max-width: 620px; }
+      .team-photo-wrap { max-width: 900px; justify-self: start; }
+      .team-copy { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      :root { --body: clamp(16px, 4.65vw, 20px); --footer: 16px; }
+      .site-nav { padding-top: 28px; }
+      .nav-links { width: 100%; gap: 12px 18px; }
+      .about-hero { padding-top: 86px; }
+      body { overflow-x: hidden; }
+      .profile-grid, .team-grid, .contact-inner { gap: 34px; }
+      .team-title { margin-bottom: 36px; }
+      .portrait, .team-photo-wrap { max-width: none; width: 100%; justify-self: stretch; }
+      .team-photo { width: 100%; max-width: 100%; height: auto; }
+      .team-grid { grid-template-columns: 1fr; }
+      .team-copy { display: grid; grid-template-columns: 1fr; gap: 34px; }
+      .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+      .footer-nav {
+        width: 100%;
+        grid-template-columns: repeat(5, minmax(0, auto));
+        justify-content: space-between;
+        gap: 8px;
+        font-size: clamp(11px, 3.2vw, 15px);
+      }
+      .footer-nav a { min-width: 0; overflow-wrap: anywhere; }
+      .credits { text-align: left; }
+    }
+  </style>
+
+<style id="unified-mobile-nav-fix">
+  *{box-sizing:border-box} html,body{max-width:100%;overflow-x:hidden;}
+  .top-nav.content,.footer-inner{width:min(1400px,100%);max-width:1400px;margin-left:auto;margin-right:auto;padding-left:clamp(18px,4vw,90px)!important;padding-right:clamp(18px,4vw,90px)!important;}
+  .nav-links{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;align-items:start;width:100%;gap:clamp(12px,5vw,120px)!important;}
+  .nav-links>a,.nav-links button{font:inherit;font-weight:700;color:inherit;background:none;border:0;padding:0;text-decoration:none;cursor:pointer;text-align:left;white-space:nowrap;}
+  .has-dropdown{position:relative;}
+  .dropdown{position:absolute;left:0;top:1.6em;display:none;min-width:9em;background:var(--cream,#ebe7db);border:2px solid currentColor;z-index:30;padding:.45em .6em;}
+  .has-dropdown:hover .dropdown,.has-dropdown:focus-within .dropdown{display:grid;gap:.35em;}
+  .dropdown a{color:inherit;text-decoration:none;white-space:nowrap;font-weight:700;}
+  .site-footer{background:#9f564b;color:#e7fdbd;overflow:hidden;}
+  .footer-inner{display:grid!important;grid-template-columns:1fr auto!important;gap:clamp(24px,5vw,80px)!important;align-items:start!important;padding-top:clamp(36px,5vw,72px)!important;padding-bottom:clamp(36px,5vw,72px)!important;}
+  .footer-nav{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:clamp(12px,5vw,88px)!important;align-items:start!important;max-width:none!important;width:100%!important;}
+  .footer-nav a,.footer-practices span{color:#e7fdbd;text-decoration:none;font-weight:700;white-space:nowrap;}
+  .footer-practices{display:grid;gap:.25em;}
+  .footer-practices a{font-size:.82em;font-weight:600;opacity:.9;}
+  .credits{white-space:nowrap;text-align:left!important;}
+  .hover-caption,.magnify-caption{font-size:clamp(14px,1.1vw,16px);line-height:1.35;color:rgba(159,86,75,.75);margin-top:10px;}
+  @media(max-width:700px){
+    .top-nav.content,.footer-inner,.content,.wide,.hero-text,.section-inner,.practice-copy,.info-grid,.about-inner,.contact-inner{padding-left:20px!important;padding-right:20px!important;}
+    .top-nav.content{padding-top:22px!important;padding-bottom:22px!important;}
+    .nav-links{gap:10px!important;font-size:clamp(15px,4.2vw,18px)!important;}
+    .nav-wordmark{max-width:42vw!important;justify-self:end;}
+    .footer-inner{grid-template-columns:1fr!important;gap:24px!important;}
+    .footer-nav{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:8px!important;font-size:clamp(15px,4.1vw,18px)!important;}
+    .footer-practices a{font-size:.78em;}
+    .credits{white-space:normal;font-size:clamp(15px,4vw,18px)!important;}
+  }
+  @media(max-width:380px){.nav-links,.footer-nav{font-size:14px!important;gap:6px!important}.top-nav.content,.footer-inner,.content,.wide,.hero-text,.section-inner,.practice-copy,.info-grid,.about-inner,.contact-inner{padding-left:16px!important;padding-right:16px!important;}}
+</style>
+<style id="about-specific-fixes">
+.about-hero{padding-top:clamp(24px,4vw,58px)!important}.profile-grid{align-items:start!important}.team-grid{grid-template-columns:minmax(0,1fr) minmax(320px,0.95fr)!important;gap:clamp(38px,5vw,80px)!important;align-items:start!important}.team-copy{display:grid!important;grid-template-columns:1fr!important;gap:clamp(24px,3vw,44px)!important}.team-photo-wrap{width:100%;max-width:760px!important;justify-self:end}.team-photo{width:100%;height:auto;display:block;object-fit:contain!important}.caption{padding-left:0!important;padding-right:0!important}
+@media(max-width:700px){.about-hero{padding-top:10px!important}.profile-grid,.team-grid{grid-template-columns:1fr!important;gap:26px!important}.portrait,.team-photo-wrap{width:100%!important;max-width:none!important;justify-self:stretch!important}.team-title{font-size:clamp(42px,13vw,64px)!important}.contact-strip{padding-left:20px!important;padding-right:20px!important}.team-photo-wrap{padding-left:0!important;padding-right:0!important}.team-section{overflow:hidden!important}}
+</style></head>
+<body>
+  <header class="site-nav" aria-label="Primary navigation"><nav class="top-nav content"><div class="nav-links"><a href="index.html">Steppe</a><div class="nav-item has-dropdown"><button type="button" aria-haspopup="true">Practices</button><div class="dropdown"><a href="loomyco.html">Loomyco</a><a href="spoor.html">Spoor</a></div></div><a class="active" href="about.html">About</a><a href="mailto:steppe.pet@gmail.com">Contact</a></div></nav></header>
+
+  <main>
+    <section class="about-hero">
+      <div class="about-inner">
+        <div class="profile-grid">
+          <img class="portrait" src="assets/images/About-Zuriya.jpg" alt="Portrait of Zuriya Wang">
+          <div class="profile-copy">
+            <h2 class="bio-title">Zuriya Wang</h2>
+            <p class="body-copy">Zuriya Wang is a designer based between London and China, developing design research practices at the intersection of ecological design, multispecies design, product design and biodesign.</p>
+            <p class="body-copy">She trained at Central Saint Martins and later completed postgraduate study in Curating Contemporary Design at Kingston University, in partnership with the Design Museum, with additional study in circular economy through TU Delft. Before developing Steppe, she worked for over a decade across brand, packaging, product and interior design, developing projects from concept to production.</p>
+            <p class="body-copy">Steppe grows from Zuriya’s lifelong engagement with living systems, beginning in childhood through designing, making and maintaining small aquatic, reptile and invertebrate habitats. It is shaped by Daoist philosophy and East Asian animistic understandings of human–nature relations, deepened through field study into Mongolian nomadic lifeways, and grounded in everyday life with her daughter and companion animals.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="team-section">
+      <div class="team-inner">
+        <h2 class="team-title">Family Team behind Steppe</h2>
+        <div class="team-grid">
+          <div class="team-copy">
+            <article class="member">
+              <h3>Gwen Wang</h3>
+              <p>Gwen is Zuriya’s daughter and creative collaborator. Her questions, observations and hands-on involvement have shaped the project from its early development, including design proposition, material experiments, prototyping and the character design of Loomyco.</p>
+            </article>
+            <article class="member">
+              <h3>Dian</h3>
+              <p>Dian is the family’s adopted turtle. Living beside Zuriya’s desk, she has become a quiet daily presence — and occasional supervisor — in the development of Steppe.</p>
+            </article>
+          </div>
+          <figure class="team-photo-wrap">
+            <img class="team-photo" src="assets/images/About-Gwen-Dian.jpg" alt="Gwen and Dian">
+            <figcaption class="caption">Gwen and Dian, whose questions, care routines and daily presence have shaped Steppe from within the home.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-strip">
+      <div class="contact-inner">
+        <h2 class="contact-title">Contact</h2>
+        <p class="contact-text">For exhibitions, collaborations, press or research enquiries:<br><a href="mailto:steppe.pet@gmail.com">steppe.pet@gmail.com</a></p>
+      </div>
+    </section>
+
+    <footer class="site-footer"><div class="footer-inner"><nav class="footer-nav" aria-label="Footer navigation"><a href="index.html">Steppe</a><div class="footer-practices"><span>Practices</span><a href="loomyco.html">Loomyco</a><a href="spoor.html">Spoor</a></div><a href="about.html">About</a><a href="mailto:steppe.pet@gmail.com">Contact</a></nav><div class="credits"><p>© Zuriya Wang 2026</p><p>Patent pending</p></div></div></footer>
+  </main>
+
+<script id="mobile-hover-auto-swap">
+(function(){
+  var mq=window.matchMedia('(max-width: 760px)');
+  function setup(){
+    document.querySelectorAll('img[data-hover], img[data-alt-src]').forEach(function(img){
+      var alt=img.getAttribute('data-hover')||img.getAttribute('data-alt-src');
+      if(!alt || img.dataset.swapReady) return;
+      img.dataset.swapReady='1'; img.dataset.originalSrc=img.getAttribute('src');
+    });
+  }
+  setup();
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      if(!mq.matches) return;
+      entries.forEach(function(e){
+        var img=e.target, alt=img.getAttribute('data-hover')||img.getAttribute('data-alt-src');
+        if(!alt) return;
+        img.src = e.intersectionRatio>0.55 ? alt : img.dataset.originalSrc;
+      });
+    },{threshold:[0,.55,.9]});
+    document.querySelectorAll('img[data-hover], img[data-alt-src]').forEach(function(img){io.observe(img)});
+  }
+})();
+</script>
+</body>
+</html>
